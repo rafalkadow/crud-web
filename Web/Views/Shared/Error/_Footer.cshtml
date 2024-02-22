@@ -1,0 +1,9 @@
+﻿@using Domain.Modules.Base.ViewModels
+@model ValueViewModel
+
+<!-- jQuery -->
+<script src="~/../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script src="@(Model.JavascriptSource + Model.ViewName + $".js?{Model.GetCurrentDateTime}")" type="text/javascript"></script>

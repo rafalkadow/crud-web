@@ -1,0 +1,124 @@
+﻿@using Domain.Modules.Base.ViewModels
+@using Shared.Web
+@model ValueViewModel
+
+
+<script type="text/javascript">
+
+    var DataPageBase = function () {
+
+        var StartPageFunction = function () {
+            var ReturnUrl = @Html.Raw(@Json.Serialize(@Model.ReturnUrl));
+            if (ReturnUrl === "undefined" || ReturnUrl == null)
+            {
+                ReturnUrl = '';   
+            }
+
+            var data = {
+                AppUrl: AppBaseUrlFunction(),
+                ReturnUrl : ReturnUrl,
+            };
+            return data;
+        };
+
+        var TimeoutValueAjaxFunction = function () {
+            var data = @Model.TimeoutValueAjaxGet();
+            return data;
+        };
+
+        var SuccessMessageTitleFunction = function () {
+            var data = @Html.Raw(@Json.Serialize(@Model.ApplicationValueClass().SuccessMessageTitle()));
+            return data;
+        };
+
+        var ErrorMessageTitleFunction = function () {
+            var data = @Html.Raw(@Json.Serialize(@Model.ApplicationValueClass().ErrorMessageTitle()));
+            return data;
+        };
+
+        var SuccessMessageAnotherTitleFunction = function () {
+            var data = @Html.Raw(@Json.Serialize(@Model.ApplicationValueClass().SuccessMessageAnotherTitle()));
+            return data;
+        };
+
+        var ErrorMessageAnotherTitleFunction = function () {
+            var data = @Html.Raw(@Json.Serialize(@Model.ApplicationValueClass().ErrorMessageAnotherTitle()));
+            return data;
+        };
+
+        var ErrorMessageValidationTitleFunction = function () {
+            var data = @Html.Raw(@Json.Serialize("Błąd walidacji formularza"));
+            return data;
+        };
+
+        var SuccessMessageGeneralTitleFunction = function () {
+            var data = @Html.Raw(@Json.Serialize(""));
+            return data;
+        };
+
+        var ErrorMessageGeneralTitleFunction = function () {
+            var data = @Html.Raw(@Json.Serialize(""));
+            return data;
+        };
+
+
+        var AppBaseUrlFunction = function () {
+            var data = '@MyHttpContext.AppBaseUrl';
+            return data;
+        };
+
+        var AppUrlFunction = function (url) {
+            var data = '@Model.AppUrl()';
+            if (url === "undefined" || url == null)
+                url = '';
+
+            if (url != '') {
+                data += "/" + url
+            }
+            return data;
+        };
+
+        return {
+            StartPage: function () {
+                return StartPageFunction();
+            },
+
+            TimeoutValueAjax: function () {
+                return TimeoutValueAjaxFunction();
+            },
+
+            SuccessMessageTitle: function () {
+                return SuccessMessageTitleFunction();
+            },
+
+            ErrorMessageTitle: function () {
+                return ErrorMessageTitleFunction();
+            },
+
+            SuccessMessageGeneralTitle: function () {
+                return SuccessMessageGeneralTitleFunction();
+            },
+
+            ErrorMessageGeneralTitle: function () {
+                return ErrorMessageGeneralTitleFunction();
+            },
+
+            SuccessMessageAnotherTitle: function () {
+                return SuccessMessageAnotherTitleFunction();
+            },
+
+            ErrorMessageAnotherTitle: function () {
+                return ErrorMessageAnotherTitleFunction();
+            },
+
+            ErrorMessageValidationTitle: function () {
+                return ErrorMessageValidationTitleFunction();
+            },
+
+            AppUrl: function (url){
+                return AppUrlFunction(url);
+            },
+        };
+    }();
+</script>
+

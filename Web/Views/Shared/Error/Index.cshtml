@@ -1,0 +1,21 @@
+﻿@using Domain.Modules.Base.ViewModels
+@using Domain.Modules.Base.Enums
+@model ValueViewModel
+
+<!doctype html>
+<html lang="en">
+
+@await Html.PartialAsync("~/Views/Shared/Error/_Header.cshtml", Model)
+
+<body class="hold-transition lockscreen">
+
+    @await Html.PartialAsync("~/Views/Shared/Error/_Menu.cshtml", Model)
+
+    @RenderBody()
+
+    @await Html.PartialAsync("~/Areas/" + Model.ControllerName() + "/Views/" + Model.ViewName + "/Data/" + Model.ViewName + "Data.cshtml", Model)
+
+    @await Html.PartialAsync("~/Views/Shared/Error/_Modals.cshtml", Model)
+    @await Html.PartialAsync("~/Views/Shared/Error/_Footer.cshtml", Model)
+</body>
+</html>

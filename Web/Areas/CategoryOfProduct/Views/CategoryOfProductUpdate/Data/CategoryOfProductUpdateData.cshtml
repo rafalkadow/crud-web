@@ -1,0 +1,23 @@
+﻿@using Domain.Modules.CategoryOfProduct.Consts
+@using Domain.Modules.CategoryOfProduct.ViewModels
+@using Shared.Web
+
+@model CategoryOfProductViewModel
+
+<script type="text/javascript">
+
+    var UpdateData = function () {
+
+        var MainUrl = function() {
+            var linkPage = '@($"{MyHttpContext.AppBaseUrl}/{CategoryOfProductConsts.Url}")';
+            return linkPage;
+        };
+
+        return {
+
+            MainUrl: function () {
+                return MainUrl();
+            },
+        };
+    }();
+</script>

@@ -1,0 +1,55 @@
+﻿@using Domain.Modules.Base.Consts
+@using Domain.Modules.SignIn.ViewModels
+@using Domain.Modules.Base.Enums
+@using Domain.Modules.Base.Extensions
+@using Domain.Modules.SignIn.Consts
+
+@model SignInViewModel
+
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <b>Web.Mvc</b>
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">Log in to the application</p>
+            <div id="messageApplication">
+            </div>
+            <form id="@Model.FormName()" action="#" method="post">
+                <input type="hidden" id="ReturnUrl" name="ReturnUrl" value="@Model.ReturnUrl" />
+                @Html.AntiForgeryToken()
+                <div class="input-group mb-3">
+                    <input id="@nameof(Model.SignInEmail)" name="@nameof(Model.SignInEmail)" value="@Model.SignInEmail" type="text" class="form-control" placeholder="Email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="@nameof(Model.SignInPassword)" name="@nameof(Model.SignInPassword)" value="@Model.SignInPassword" type="password" class="form-control" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button id="SignInButton" class="btn btn-primary btn-block">Sign in</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+<!-- /.login-box -->

@@ -1,0 +1,23 @@
+﻿@using Domain.Modules.Product.Consts
+@using Domain.Modules.Product.ViewModels
+@using Shared.Web
+
+@model ProductViewModel
+
+<script type="text/javascript">
+
+    var CreateData = function () {
+
+        var MainUrl = function() {
+            var linkPage = '@($"{MyHttpContext.AppBaseUrl}/{ProductConsts.Url}")';
+            return linkPage;
+        };
+
+        return {
+
+            MainUrl: function () {
+                return MainUrl();
+            },
+        };
+    }();
+</script>

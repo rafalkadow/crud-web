@@ -1,0 +1,56 @@
+﻿@using Domain.Modules.Base.ViewModels
+@using Domain.Modules.Base.Consts
+@using Domain.Modules.Base.Extensions
+@using Shared.Web
+
+@model ValueViewModel
+
+<script type="text/javascript">
+
+    var DataPageForms = function () {
+        var FormGuidFunction = function () {
+            var data = "@Model.Id";
+            var Id = $("#Id").val();
+            if(typeof Id !== "undefined" && Id !== null && Id !== '')
+            {
+                data = Id;
+            }
+            return data;
+        };
+
+        var FormActionFunction = function () {
+            var data = "@(MyHttpContext.AppBaseUrl + @Model.ControllerNameUrlWithOperation() + BaseConsts.Action)";
+            return data;
+        };
+
+        var FormUpdateAction = function () {
+            var data = "@(MyHttpContext.AppBaseUrl + @Model.ControllerNameUrlUpdate() + BaseConsts.Action)";
+            return data;
+        };
+
+        var FormNameFunction = function () {
+            var data = "@Model.FormName()";
+            return data;
+        };
+
+        return {
+            FormGuid: function () {
+                return FormGuidFunction();
+            },
+
+            FormAction: function () {
+                return FormActionFunction();
+            },
+
+            FormUpdate: function () {
+                return FormUpdateAction();
+            },
+
+            FormName: function () {
+                return FormNameFunction();
+            },
+ 
+        };
+    }();
+</script>
+

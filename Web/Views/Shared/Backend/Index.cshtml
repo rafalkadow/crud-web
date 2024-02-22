@@ -1,0 +1,45 @@
+﻿@using Domain.Modules.Base.ViewModels
+@using Domain.Modules.Base.Enums
+@using Domain.Modules.Base.Consts
+@using Shared.Enums
+@using Shared.Web
+@model ValueViewModel
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+@await Html.PartialAsync("~/Views/Shared/Backend/_Header.cshtml", Model)
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="@MyHttpContext.GetBaseUrl("dist/img/AdminLTELogo.png")" alt="AdminLTELogo" height="60" width="60">
+        </div>
+    @await Html.PartialAsync("~/Views/Shared/Backend/_Menu.cshtml", Model)
+
+    @if (Model.OperationTypeValue() != OperationEnum.View)
+    {
+        <input type="hidden" id="@nameof(BaseConsts.Id)" name="@nameof(BaseConsts.Id)" value="@Model.Id" />
+    }
+
+    @RenderBody()
+
+    @await Html.PartialAsync("~/Areas/" + Model.ControllerName() + "/Views/" + Model.ViewName + "/Data/" + Model.ViewName + "Data.cshtml", Model)
+
+    @await Html.PartialAsync("~/Views/Shared/Javascript/DataPageBase.cshtml", Model)
+
+    @await Html.PartialAsync("~/Views/Shared/Javascript/DataPageAction.cshtml", Model)
+
+    @await Html.PartialAsync("~/Views/Shared/Javascript/DataPageList.cshtml", Model)
+    
+    @await Html.PartialAsync("~/Views/Shared/Javascript/DataPageForms.cshtml", Model)
+
+    @await Html.PartialAsync("~/Views/Shared/Backend/_Modals.cshtml", Model)
+
+    @await Html.PartialAsync("~/Views/Shared/Backend/_Footer.cshtml", Model)
+    </div>
+</body>
+
+</html>

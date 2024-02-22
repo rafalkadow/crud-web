@@ -1,0 +1,21 @@
+﻿@using Domain.Modules.SignIn.ViewModels
+
+@model SignInViewModel
+
+<script type="text/javascript">
+
+    var ViewData = function () {
+
+        var MainUrl = function() {
+            var linkPage = '@Model.DataMenu().MainMenuUrl';
+            return linkPage;
+        };
+
+        return {
+
+            MainUrl: function () {
+                return MainUrl();
+            },
+        };
+    }();
+</script>

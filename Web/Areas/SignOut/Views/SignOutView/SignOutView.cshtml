@@ -1,0 +1,44 @@
+﻿@using Domain.Modules.Base.Consts
+@using Domain.Modules.SignOut.ViewModels
+@using Domain.Modules.Base.Enums
+@using Domain.Modules.Base.Extensions
+@using Domain.Modules.SignOut.Consts
+
+@model SignOutViewModel
+
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <b>Web Mvc</b>
+        </div>
+        <div class="card-body">
+            <p class="text-muted font-weight-bold">Account has been successfully logged out :</p>
+            <form id="@Model.FormName()" action="#" method="post">
+                <input type="hidden" id="ReturnUrl" name="ReturnUrl" value="@Model.ReturnUrl" />
+                <div class="form-group">
+                    <h4 class="form-title">@Model.EmailSignOut</h4>
+                </div>
+                <div class="form-group">
+                    <h6>
+                        We invite you to use your account again.
+                    </h6>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-6">
+                        <button id="BackButton" class="btn btn-primary">Back to SignIn</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+<!-- /.login-box -->

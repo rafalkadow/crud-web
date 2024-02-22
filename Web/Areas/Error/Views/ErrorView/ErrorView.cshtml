@@ -1,0 +1,31 @@
+﻿@using Domain.Modules.Error.ViewModels
+@using Domain.Modules.Base.Enums
+@using Domain.Modules.Base.Extensions
+
+@model ErrorViewModel
+@{
+    var menuElement = @Model.DataMenu();
+
+    var urlReturn = (@Model.UrlReturn != null) ? "/" + @Model.UrlReturn : "/";
+    var buttonReturnLabel = (@Model.UrlReturn != null) ? "Return to the module" : "Return to home page";
+}
+
+<!-- Automatic element centering -->
+<div class="lockscreen-wrapper">
+    <div class="lockscreen-logo">
+        <b>@Model.ErrorCode</b>
+        <b>@Model.ErrorName</b>
+    </div>
+    <!-- User name -->
+    <div class="lockscreen-name">@Model.ErrorDescription</div>
+
+    <div class="help-block text-center">
+        <button id="backButton" data-action="@urlReturn" type="button" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">@buttonReturnLabel</button>
+    </div>
+    <br/>
+    <div class="lockscreen-footer text-center">
+        Copyright &copy; 2014-2021 <b><a href="https://adminlte.io" class="text-black">AdminLTE.io</a></b><br>
+        All rights reserved
+    </div>
+</div>
+<!-- /.center -->

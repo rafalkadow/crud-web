@@ -1,0 +1,102 @@
+﻿@using Domain.Modules.Base.ViewModels
+@using Domain.Modules.Base.Extensions
+@using Shared.Web
+@model ValueViewModel
+
+<script type="text/javascript">
+
+    var DataPageList = function () {
+
+        var TableListActionFunction = function (guid, operation) {
+            
+            if (guid === "undefined" || guid == null)
+                guid = '';
+
+            if (operation === "undefined" || operation == null)
+                operation = '';
+
+            var data = '';
+            if (guid == '') {
+                data = "@MyHttpContext.AppBaseUrl@Model.ControllerNameUrl()/List/" + operation;
+            }
+            else{
+                data = "@MyHttpContext.AppBaseUrl@Model.ControllerNameUrl()/List/" + guid + "/" + operation;
+            }
+            return data;
+        };
+
+        var TableNameFunction = function () {
+            var data = "@Model.ControllerName()Table";
+            return data;
+        };
+
+        var FormListActionFunction = function () {
+            var data = "@MyHttpContext.AppBaseUrl@Model.ControllerName()Form";
+            return data;
+        };
+
+        var FormListNameFunction = function () {
+            var data = "@Model.FormListName()";
+            return data;
+        };
+
+        var SuccessMessageGeneralTitleFunction = function () {
+            var data = @Html.Raw(@Json.Serialize("The operations were performed correctly"));
+            return data;
+        };
+
+        var ErrorMessageGeneralTitleFunction = function () {
+            var data = @Html.Raw(@Json.Serialize("Error while performing the operation"));
+            return data;
+        };
+
+        var TableAction = function (controllerName) {
+            var data = "@MyHttpContext.AppBaseUrl" + "/" + controllerName + "/List/";
+            return data;
+        };
+
+        var GetAction = function (controllerName) {
+            var data = "@MyHttpContext.AppBaseUrl" + "/" + controllerName + "/Get/";
+            return data;
+        };
+
+        return {
+
+            TableListAction: function (guid, operation) {
+                return TableListActionFunction(guid, operation);
+            },
+
+            TableName: function () {
+                return TableNameFunction();
+            },
+
+            FormListAction: function () {
+                return FormListActionFunction();
+            },
+
+            FormListName: function () {
+                return FormListNameFunction();
+            },
+
+            FormListValidation: function () {
+                return FormListValidationFunction();
+            },
+
+            SuccessMessageGeneralTitle: function () {
+                return SuccessMessageGeneralTitleFunction();
+            },
+
+            ErrorMessageGeneralTitle: function () {
+                return ErrorMessageGeneralTitleFunction();
+            },
+
+            TableAction: function (data) {
+                return TableAction(data);
+            },
+
+            GetAction: function (data) {
+                return GetAction(data);
+            },
+        };
+    }();
+</script>
