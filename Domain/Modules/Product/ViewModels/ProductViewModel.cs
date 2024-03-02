@@ -18,7 +18,9 @@ namespace Domain.Modules.Product.ViewModels
 
         public virtual CategoryOfProductModel CategoryOfProduct { get; set; }
 
-        public string? ContractorName { get; set; }
+        public decimal Value { get; set; }
+        public DateTime DateUtc { get; set; }
+        public DateTime DateTimeUtc { get; set; }
         #endregion Fields
 
         #region Constructors

@@ -75,11 +75,11 @@ namespace Web
 					  options.AutoGenerateKeys = true;
 				  });
 
-			//services.AddHttpContextAccessor();
+			services.AddHttpContextAccessor();
 			services.AddDirectoryBrowser();
 			services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
 			services.AddMvcCore();
-			services.AddControllersWithViews();
+			services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 			
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

@@ -11,6 +11,8 @@ namespace Domain.Modules.Product.Commands
         public Guid CategoryOfProductId { get; set; }
 
         public virtual CategoryOfProductModel CategoryOfProduct { get; set; }
-
+        public decimal Value { get; set; }
+        public DateTime DateUtc { get; set; }
+        public DateTime DateTimeUtc { get; set; }
     }
 }

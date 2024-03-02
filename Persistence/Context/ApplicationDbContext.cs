@@ -11,9 +11,6 @@ using Shared.Interfaces;
 using Shared.Helpers;
 using Domain.Modules.Product.Models;
 using Microsoft.Extensions.Logging;
-using Shared.Enums;
-using Microsoft.Extensions.Configuration;
-
 
 namespace Persistence.Context
 {
@@ -90,6 +87,10 @@ namespace Persistence.Context
             configurationBuilder
                 .Properties<DateTime>()
                 .HaveConversion(typeof(UtcValueConverter));
+
+            configurationBuilder
+                .Properties<DateTime?>()
+                .HaveConversion(typeof(UtcValueNullConverter));
 
             configurationBuilder
                 .Properties<Enum>()
@@ -272,5 +273,16 @@ namespace Persistence.Context
             : base(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc))
         {
         }
+    }
+
+
+    public class UtcValueNullConverter : ValueConverter<DateTime?, DateTime?>
+    {
+        public UtcValueNullConverter()
+            : base(v => v, v => v.HasValue ? v.Value.FromDefaultTimeZoneToUtc() : v)
+        {
+        }
+        //v => v.HasValue? v.Value.FromDefaultTimeZoneToUtc() : v,
+
     }
 }

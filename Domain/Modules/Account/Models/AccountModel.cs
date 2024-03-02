@@ -21,10 +21,10 @@ namespace Domain.Modules.Account
 		public required string AccountEmail { get; set; }
 
 		[StringLength(200)]
-		public required string FirstName { get; set; }
+		public string? FirstName { get; set; }
 
 		[StringLength(200)]
-		public required string LastName { get; set; }
+		public string? LastName { get; set; }
 
 		[StringLength(200)]
 		public string? PhoneNumber { get; set; }

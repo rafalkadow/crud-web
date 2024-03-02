@@ -23,8 +23,7 @@ var Create = function () {
                     let token = $('input[name="__RequestVerificationToken"]').val();
                     
                     var query = {
-                        search: params.term,
-                        type: 'public',
+                        name: params.term,
                         __RequestVerificationToken: token
                     }
                     // Query parameters will be ?search=[term]&type=public

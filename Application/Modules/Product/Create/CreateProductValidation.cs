@@ -28,6 +28,15 @@ namespace Application.Modules.Product.Create
 
             RuleFor(u => u.CategoryOfProductId).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("Enter the field value 'CategoryOfProductId'");
+
+
+            RuleFor(f => f.DateUtc).Cascade(CascadeMode.Stop).NotEmpty()
+                    .Must(date => date != default(DateTime))
+                    .WithMessage("The 'DateUtc' is required");
+
+            RuleFor(f => f.DateTimeUtc).Cascade(CascadeMode.Stop).NotEmpty()
+                    .Must(date => date != default(DateTime))
+                    .WithMessage("The 'DateTimeUtc' is required");
         }
 
         private bool UniqueName(BaseProductCommand model, string name)

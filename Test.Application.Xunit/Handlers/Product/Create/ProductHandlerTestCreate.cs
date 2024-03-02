@@ -1,7 +1,7 @@
 ﻿using Application.Modules.Product.Create;
 using Domain.Modules.Product.Commands;
-using Web.Integration.Handlers.OrderHeader;
 using Shared.Helpers;
+using Test.Application.xUnit.Handlers.Base;
 
 namespace Test.Application.Xunit.Handlers.Product.Create
 {

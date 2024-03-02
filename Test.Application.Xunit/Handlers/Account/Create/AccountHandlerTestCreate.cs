@@ -1,9 +1,9 @@
 ﻿using Application.Modules.Account.Create;
 using Domain.Modules.Account.Commands;
-using Web.Integration.Handlers.OrderHeader;
 using Shared.Helpers;
 using Domain.Modules.Base.Enums;
 using Shared.Extensions.EnumExtensions;
+using Test.Application.xUnit.Handlers.Base;
 
 namespace Test.Application.Xunit.Handlers.Account.Create
 {
@@ -87,6 +87,9 @@ namespace Test.Application.Xunit.Handlers.Account.Create
             };
             var result = await handler.Handle(item, CancellationToken.None);
             Assert.True(result.OperationStatus);
+
+            //second the same request
+            //error exception
             var exception = await Assert.ThrowsAnyAsync<Exception>(() => handler.Handle(item, CancellationToken.None));
             Assert.True(!string.IsNullOrEmpty(exception.Message));
         }

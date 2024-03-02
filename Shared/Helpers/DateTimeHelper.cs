@@ -31,6 +31,8 @@ namespace Shared.Helpers
             if (dateTime.Kind == DateTimeKind.Local)
             {
                 var dateTimeLocal = DateTime.SpecifyKind(dateTime, DateTimeKind.Local);
+                dateTimeLocal = TimeZoneInfo.ConvertTimeToUtc(dateTimeLocal);
+
                 return dateTimeLocal;
             }
             if (dateTime.Kind == DateTimeKind.Utc)

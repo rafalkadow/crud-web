@@ -25,6 +25,17 @@ namespace Application.Modules.Product.Update
                    .Must(x => x.Length >= 1 && x.Length <= 20).WithMessage("Code should be between 1 and 20 characters")
                    .Must(UniqueCode)
                    .WithMessage("The 'Code' field must be unique");
+
+            RuleFor(u => u.CategoryOfProductId).Cascade(CascadeMode.Stop)
+                .NotEmpty().WithMessage("Enter the field value 'CategoryOfProductId'");
+
+            RuleFor(f => f.DateUtc).Cascade(CascadeMode.Stop).NotEmpty()
+                    .Must(date => date != default(DateTime))
+                    .WithMessage("The 'DateUtc' is required");
+
+            RuleFor(f => f.DateTimeUtc).Cascade(CascadeMode.Stop).NotEmpty()
+                    .Must(date => date != default(DateTime))
+                    .WithMessage("The 'DateTimeUtc' is required");
         }
 
         private bool UniqueName(BaseProductCommand model, string name)

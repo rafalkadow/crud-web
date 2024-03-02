@@ -1,7 +1,7 @@
 ﻿using Domain.Modules.Product.Commands;
-using Web.Integration.Handlers.OrderHeader;
 using Shared.Helpers;
 using Application.Modules.Product.Update;
+using Test.Application.xUnit.Handlers.Base;
 
 namespace Test.Application.Xunit.Handlers.Product.Update
 {

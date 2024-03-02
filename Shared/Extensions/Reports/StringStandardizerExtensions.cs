@@ -33,6 +33,10 @@ namespace Shared.Extensions.Reports
                     return intValue.ToString();
 
                 case decimal decimalValue:
+                    if (intFormat != null)
+                    {
+                        return decimalValue.ToString(intFormat);
+                    }
                     return decimalValue.ToString("# ### ##0.00", new CultureInfo("pl-PL", false).NumberFormat);
 
                 case DateTime dateTimeValue:

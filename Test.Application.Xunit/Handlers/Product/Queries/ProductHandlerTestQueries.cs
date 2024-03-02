@@ -1,7 +1,7 @@
-﻿using Web.Integration.Handlers.OrderHeader;
-using Shared.Helpers;
+﻿using Shared.Helpers;
 using Application.Modules.Product.Queries;
 using Domain.Modules.Product.Queries;
+using Test.Application.xUnit.Handlers.Base;
 
 namespace Test.Application.Xunit.Handlers.Product.Queries
 {

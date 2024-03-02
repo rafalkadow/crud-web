@@ -13,6 +13,8 @@ using Web.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Extensions.GeneralExtensions;
 using MediatR;
+using Microsoft.IdentityModel.Tokens;
+using Shared.Extensions.Reports;
 
 namespace Web.Areas.Product.Controllers
 {
@@ -48,7 +50,10 @@ namespace Web.Areas.Product.Controllers
 			{
 				"Name",
                 "Code",
-                "CategoryOfProduct"
+                "CategoryOfProduct",
+                "DateUtc",
+                "DateTimeUtc",
+                "Value",
             };
 
 			var response = new
@@ -67,12 +72,26 @@ namespace Web.Areas.Product.Controllers
                                 break;
 
                             case nameof(x.Code):
-                                list.Add(x.Code);
+                                list.Add(x.Code.Standardize());
                                 break;
 
                             case nameof(x.CategoryOfProduct):
                                 list.Add(x.CategoryOfProduct.Name);
                                 break;
+
+                            case nameof(x.DateUtc):
+                                list.Add(x.DateUtc.Standardize());
+                                break;
+
+                            case nameof(x.DateTimeUtc):
+                                list.Add(x.DateTimeUtc.Standardize());
+                                break;
+
+                            case nameof(x.Value):
+                                list.Add(x.Value.Standardize("# ### ##0.0000"));
+                                break;
+
+                                
                         }
                     }
 

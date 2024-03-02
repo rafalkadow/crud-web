@@ -6,6 +6,7 @@ using Application.Modules.Base.Seeder;
 using Application.Modules.Product.Create;
 using Application.Modules.CategoryOfProduct.Queries;
 using Domain.Modules.CategoryOfProduct.Queries;
+using Shared.Helpers;
 
 namespace Application.Modules.Product.Seeder
 {
@@ -29,10 +30,18 @@ namespace Application.Modules.Product.Seeder
                 for (int i = 0; i < 100; i++)
                 {
                     var random = new Random();
-                  
+                    var generator = new RandomGenerator();
+
                     var item = new CreateProductCommand() { Name = $"Product{i + 1}", Code = $"Code{i + 1}", };
                     int categoryOfProductIndex = random.Next(maxValue: categoryOfProductList.Count);
                     item.CategoryOfProductId = categoryOfProductList[categoryOfProductIndex].Id;
+                    var value = generator.RandomNumber(1, 1000);
+                    item.Value = value;
+                    
+                    var dateList = generator.RandomDate(DateTime.Now.AddMonths(-1 * value), DateTime.Now.AddMonths(value), 2);
+                    item.DateUtc = dateList[0];
+                    item.DateTimeUtc = dateList[1];
+
                     var result = await commandHandlerProduct.Handle(item, CancellationToken.None);
                     if (!result.OperationStatus)
                         return result;

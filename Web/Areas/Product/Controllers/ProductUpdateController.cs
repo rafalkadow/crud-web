@@ -44,7 +44,6 @@ namespace Web.Areas.Product.Controllers
             var findElement = (GetProductResultById?) await  mediator.Send(new GetProductQueryById(guid));
             if (findElement == null || findElement.Id == Guid.Empty)
             {
-                
                 return this.Redirect404(this.Request.GetDisplayUrl());
             }
             mapper.Map(findElement, model);

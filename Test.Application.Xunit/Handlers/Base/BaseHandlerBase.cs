@@ -17,7 +17,7 @@ using Application.Modules.Product.Mappings;
 using Application.Modules.SignIn.Mappings;
 using Application.Extensions;
 
-namespace Web.Integration.Handlers.OrderHeader
+namespace Test.Application.xUnit.Handlers.Base
 {
     public class BaseHandlerBase
     {
@@ -39,7 +39,7 @@ namespace Web.Integration.Handlers.OrderHeader
                 UserName = AccountConsts.RootName,
             };
             dataSeed();
-          
+
             var mapperConfiguration = new MapperConfiguration(config =>
             {
                 config.AddProfile(new SignInProfile());
@@ -81,7 +81,7 @@ namespace Web.Integration.Handlers.OrderHeader
 
             _dbContext.Account.AddRange(testAccount);
             var generator = new RandomGenerator();
-            
+
 
             var testCategoryOfProduct = new List<CategoryOfProductModel>();
 
@@ -94,7 +94,7 @@ namespace Web.Integration.Handlers.OrderHeader
                     Code = randomString,
                 };
 
-                if(i == 0)
+                if (i == 0)
                     item.Id = new Guid("00000000-0000-0000-0000-000000000001");
 
                 testCategoryOfProduct.Add(item);

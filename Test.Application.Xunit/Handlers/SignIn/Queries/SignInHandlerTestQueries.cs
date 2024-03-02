@@ -1,6 +1,6 @@
-﻿using Web.Integration.Handlers.OrderHeader;
-using Application.Modules.SignIn.Queries;
+﻿using Application.Modules.SignIn.Queries;
 using Domain.Modules.SignIn.Queries;
+using Test.Application.xUnit.Handlers.Base;
 
 namespace Test.Application.Xunit.Handlers.SignIn.Queries
 {

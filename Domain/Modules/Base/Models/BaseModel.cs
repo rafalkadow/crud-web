@@ -25,7 +25,6 @@ namespace Domain.Modules.Base.Models
         public Guid? ModifiedUserId { get; set; }
 
         public string? ModifiedUserName { get; set; }
-
         public DateTime? ModifiedOnDateTimeUTC { get; set; }
 
         [Required]

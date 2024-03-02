@@ -3,7 +3,7 @@ using Domain.Modules.Product.Commands;
 using Domain.Modules.Base.Models;
 using Shared.Enums;
 using FluentValidation.TestHelper;
-using Web.Integration.Handlers.OrderHeader;
+using Test.Application.xUnit.Handlers.Base;
 
 namespace Test.Application.Xunit.Handlers.Product.Validation
 {

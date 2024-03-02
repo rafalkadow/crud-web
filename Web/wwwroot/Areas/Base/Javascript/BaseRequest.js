@@ -175,7 +175,7 @@ var BaseRequest = function () {
                                 .remove();
 
                             if (element.next('.help-inline').length == 0) {
-                                if (element.hasClass('select2-allow-clear')) {
+                                if (element.hasClass('select2-allow-clear') || element.hasClass('datetimepicker-input')) {
                                     element.parent().after(value);
                                 }
                                 else {

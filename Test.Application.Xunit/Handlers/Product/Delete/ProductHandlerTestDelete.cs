@@ -1,6 +1,6 @@
 ﻿using Domain.Modules.Product.Commands;
-using Web.Integration.Handlers.OrderHeader;
 using Application.Modules.Product.Delete;
+using Test.Application.xUnit.Handlers.Base;
 
 namespace Test.Application.Xunit.Handlers.Product.Delete
 {

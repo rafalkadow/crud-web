@@ -13,6 +13,14 @@ namespace Application.Modules.Account.Validations
         public CreateAccountValidation(IDbContext dbContext, IDefinitionModel definitionModel)
             : base(dbContext, definitionModel)
         {
+            RuleFor(u => u.Id).Cascade(CascadeMode.Stop)
+                 .NotEmpty().WithMessage("Enter the field value 'Id'")
+                 .When(x => x.Id != null && x.Id != Guid.Empty)
+                 .Must(UniqueGuid)
+                 .WithMessage("The 'Id' field must be unique")
+                 .When(x => x.Id != null && x.Id != Guid.Empty);
+;
+
             RuleFor(u => u.AccountEmail).Cascade(CascadeMode.Stop)
                    .NotEmpty().WithMessage("Enter the field value 'Email'")
                    .Must(x => x.Length >= 5 && x.Length <= 200).WithMessage("Email should be between 5 and 200 characters")
@@ -24,10 +32,17 @@ namespace Application.Modules.Account.Validations
                    .Must(x => x.Length >= 5 && x.Length <= 200).WithMessage("Password should be between 5 and 200 characters");
         }
 
+        private bool UniqueGuid(BaseAccountCommand model, Guid? id)
+        {
+            var result = false;
+            result = !DbContext.GetQueryable<AccountModel>().Any(u => u.Id == id);
+            return result;
+        }
+
         private bool UniqueEmail(BaseAccountCommand model, string email)
         {
             var result = false;
-            result = !DbContext.GetQueryable<AccountModel>().Any(u => u.Id != model.Id && u.AccountEmail == email);
+            result = !DbContext.GetQueryable<AccountModel>().Any(u => u.AccountEmail == email);
             return result;
         }
     }

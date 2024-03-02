@@ -10,7 +10,6 @@ using Application.Extensions;
 using Shared.Extensions.EnumExtensions;
 using Shared.Extensions.GeneralExtensions;
 using MediatR;
-using NLog;
 using Application.Modules.Base.Commands;
 
 namespace Application.Modules.Account.Update

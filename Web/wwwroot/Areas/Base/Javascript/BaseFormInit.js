@@ -1,45 +1,26 @@
 ﻿"use strict";
 var BaseFormInit = function () {
     var FormInitFunction = function () {
-
-       
-        return;
-
-        $(".select2-readonly").select2({
-            allowClear: false,
-            placeholder: DataPageForms.ComboboxText(),
-            width: null,
-            readonly: true,
-        });
-
-        var arrows;
-        if (KTUtil.isRTL()) {
-            arrows = {
-                leftArrow: '<i class="la la-angle-right"></i>',
-                rightArrow: '<i class="la la-angle-left"></i>'
-            };
-        } else {
-            arrows = {
-                leftArrow: '<i class="la la-angle-left"></i>',
-                rightArrow: '<i class="la la-angle-right"></i>'
-            };
-        }
-
-        $('.date-picker').datepicker({
-            rtl: KTUtil.isRTL(),
-            todayBtn: "linked",
-            clearBtn: true,
-            todayHighlight: true,
-            format: 'yyyy-mm-dd',
-            language: DataPageBase.LanguageCode(),
-            templates: arrows
-        });
-
-        $('.datetimepicker-input-element').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            language: DataPageBase.LanguageCode(),
-        });
         
+        //Date picker
+        $('.date-picker-class').datetimepicker({
+            format: 'L'
+        });
+
+        //Date and time picker
+        $('.date-time-picker-class').datetimepicker({ icons: { time: 'far fa-clock' } });
+
+        $(".inputmask").inputmask({
+            'alias': 'decimal',
+            'autoGroup': true,
+            'digits': 4,
+            'digitsOptional': false,
+            'placeholder': '0.0000',
+            'radixPoint': ".",
+            rightAlign: false,
+            clearMaskOnLostFocus: !1
+        });
+
     };
 
     return {

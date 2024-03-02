@@ -33,8 +33,8 @@ namespace Domain.Modules.Product.Models
         public virtual CategoryOfProductModel CategoryOfProduct { get; set; }
 
         public decimal Value { get; set; }
-        public DateTime DateTimeFromUtc { get; set; }
-        public DateTime DateTimeToUtc { get; set; }
+        public DateTime DateUtc { get; set; }
+        public DateTime DateTimeUtc { get; set; }
         #endregion Fields
     }
 }
