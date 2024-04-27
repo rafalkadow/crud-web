@@ -7,6 +7,7 @@ using Domain.Modules.Base.Extensions;
 using Shared.Extensions.GeneralExtensions;
 using MediatR;
 using Application.Modules.Base.Queries;
+using Shared.Enums;
 
 namespace Application.Modules.CategoryOfProduct.Queries
 {
@@ -28,9 +29,9 @@ namespace Application.Modules.CategoryOfProduct.Queries
                 var query = list.Where(x =>
                                 (string.IsNullOrEmpty(filter.Name) || (filter.CaseSensitiveComparison ? x.Name.Contains(filter.Name) : x.Name.ToUpper().Contains(filter.Name.ToUpper()))) &&
                                 (string.IsNullOrEmpty(filter.Code) || (filter.CaseSensitiveComparison ? x.Code.Contains(filter.Code) : x.Code.ToUpper().Contains(filter.Code.ToUpper()))) &&
+                                (filter.RecordStatus == RecordStatusEnum.AllRecords || x.RecordStatus == filter.RecordStatus) &&
                                 (filter.CreatedFrom == null || x.CreatedOnDateTimeUTC >= filter.CreatedFrom.Value.ToUniversalTime()) &&
-                                (filter.CreatedTo == null || x.CreatedOnDateTimeUTC <= filter.CreatedTo.Value.ToUniversalTime())
-                           );
+                                (filter.CreatedTo == null || x.CreatedOnDateTimeUTC <= filter.CreatedTo.Value.ToUniversalTime()));
 
                 filter.TotalRecords = query.Count();
 

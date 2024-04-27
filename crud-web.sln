@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Mvc", "Web\Web.Mvc.csproj", "{0CF6FDA7-B88B-4A43-B194-3F3CB7317C16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Mvc", "Web.Mvc\Web.Mvc.csproj", "{0CF6FDA7-B88B-4A43-B194-3F3CB7317C16}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{A771D4C6-499C-4E37-AFC8-7C5A8AFA92DD}"
 EndProject
@@ -23,9 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9EAE15E9-2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Application.xUnit", "Test.Application.Xunit\Test.Application.xUnit.csproj", "{B70BD336-CF74-4E8A-81E2-B0B3D91A272C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Application.NUnit", "Test.Application.NUnit\Test.Application.NUnit.csproj", "{B2F59356-BEF7-4CC6-82E4-D449A31E37F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Application.NUnit", "Test.Application.NUnit\Test.Application.NUnit.csproj", "{B2F59356-BEF7-4CC6-82E4-D449A31E37F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Application.MSTest", "Test.Application.MSTest\Test.Application.MSTest.csproj", "{6BE2E22B-9870-42F5-A456-EA22B591E5F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Application.MSTest", "Test.Application.MSTest\Test.Application.MSTest.csproj", "{6BE2E22B-9870-42F5-A456-EA22B591E5F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

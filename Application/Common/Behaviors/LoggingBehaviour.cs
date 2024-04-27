@@ -1,8 +1,6 @@
 ﻿using MediatR;
-using NLog;
-using System.Reflection;
-using Shared.Extensions.GeneralExtensions;
 using Microsoft.Extensions.Logging;
+using System.Reflection;
 
 namespace Application.Common.Behaviors
 {

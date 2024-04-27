@@ -20,7 +20,11 @@ namespace Domain.Modules.Base.ViewModels
 
         public DateTime? ModifiedOnDateTimeUTC { get; set; }
 
-        public RecordStatusEnum RecordStatus { get; set; } = RecordStatusEnum.Actived;
+        public RecordStatusEnum RecordStatus { get; set; } = RecordStatusEnum.AllRecords;
+
+        public DateTime? CreatedFrom { get; set; }
+
+        public DateTime? CreatedTo { get; set; }
 
         public ulong OrderId { get; set; }
 

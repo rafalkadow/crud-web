@@ -8,7 +8,7 @@ namespace Domain.Modules.Base.Models
 {
     [Serializable]
     [Index(nameof(OrderId), IsUnique = false)]
-    public abstract class BaseModel : ICloneable, IEntity
+    public abstract class BaseModel : ICloneable, IEntity 
     {
         [Key]
         [Required]

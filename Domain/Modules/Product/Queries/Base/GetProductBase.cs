@@ -9,6 +9,7 @@ namespace Domain.Modules.Product.Queries
 		public string? Name { get; set; }
 		public string? Code { get; set; }
         public Guid CategoryOfProductId { get; set; }
+        public string? CategoryOfProductName { get; set; }
 
         public virtual CategoryOfProductModel CategoryOfProduct { get; set; }
         public decimal Value { get; set; }

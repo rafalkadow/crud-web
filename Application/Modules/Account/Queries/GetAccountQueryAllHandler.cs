@@ -7,6 +7,7 @@ using Domain.Modules.Base.Extensions;
 using Shared.Extensions.GeneralExtensions;
 using MediatR;
 using Application.Modules.Base.Queries;
+using Shared.Enums;
 
 namespace Application.Modules.Account.Queries
 {
@@ -28,9 +29,10 @@ namespace Application.Modules.Account.Queries
                                 (string.IsNullOrEmpty(filter.AccountEmail) || (filter.CaseSensitiveComparison ? x.AccountEmail.Equals(filter.AccountEmail) : x.AccountEmail.ToUpper().Equals(filter.AccountEmail.ToUpper()))) &&
                                 (string.IsNullOrEmpty(filter.FirstName) || (filter.CaseSensitiveComparison ? x.FirstName.Contains(filter.FirstName) : x.FirstName.ToUpper().Contains(filter.FirstName.ToUpper()))) &&
                                 (string.IsNullOrEmpty(filter.LastName) || (filter.CaseSensitiveComparison ? x.LastName.Contains(filter.LastName) : x.LastName.ToUpper().Contains(filter.LastName.ToUpper()))) &&
+                                (filter.RecordStatus == RecordStatusEnum.AllRecords || x.RecordStatus == filter.RecordStatus) &&
                                 (filter.CreatedFrom == null || x.CreatedOnDateTimeUTC >= filter.CreatedFrom.Value.ToUniversalTime()) &&
-                                (filter.CreatedTo == null || x.CreatedOnDateTimeUTC <= filter.CreatedTo.Value.ToUniversalTime())
-                             );
+                                (filter.CreatedTo == null || x.CreatedOnDateTimeUTC <= filter.CreatedTo.Value.ToUniversalTime()));
+
                 filter.TotalRecords = query.Count();
 
                 list = query.OrderByTypeSort(y => y.OrderId, filter.OrderSortValue).Skip(filter.DisplayStart);

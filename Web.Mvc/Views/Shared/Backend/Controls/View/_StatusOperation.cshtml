@@ -1,0 +1,34 @@
+﻿@using Domain.Modules.Base.Enums;
+@using Domain.Modules.Base.ViewModels
+@using Domain.Modules.Base.Consts
+
+@model ValueViewModel
+
+<div class="row mt-8">
+    <div class="col-lg-3 mb-lg-0 mb-6 text-left">
+    </div>
+    <div class="col-lg-3 mb-lg-0 mb-6 text-left">
+    </div>
+    <div class="col-lg-3 mb-lg-0 mb-6 text-left">
+    </div>
+    <div class="col-lg-3 mb-lg-0 mb-6">
+        <label>Operations:</label>
+        <div class="input-group table-group-actions">
+            <select id="statusOperation" name="statusOperation" class="form-control input-small table-group-action-input">
+                <option value="">Select</option>
+                <option value="delete">Delete</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="archive">Archive</option>
+                <option value="up">Up</option>
+                <option value="down">Down</option>
+                <option value="first">First</option>
+                <option value="last">Last</option>
+            </select>
+            <div id="statusOperationButton" class="input-group-append">
+                <button class="btn btn-danger" type="button">Execute</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-8"></div>

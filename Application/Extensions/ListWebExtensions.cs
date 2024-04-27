@@ -9,14 +9,13 @@ namespace Application.Extensions
     {
         public static void StartListAdd(this List<string> list, GetBaseResultFilter x, ValueViewModel model)
         {
-            string lineMany = "";
+            string lineOne = "";
+            lineOne += "<label class='mt-checkbox mt-checkbox-single mt-checkbox-outline'><input type='checkbox' class='checkboxes' value='" + x.Id + "'/><span></span></label>";
+            list.Add(lineOne);
 
-			lineMany += "<a href='" + model.DataMenu().SubMenuUrlUpdate + x.Id + "' class='btn btn-sm btn-clean btn-icon' title='Update'><i class='fas fa-edit'></i> </a>";
-			
-			lineMany += "<a href='javascript:;' tagOperation='" + x.Id + "' class='btn btn-sm btn-clean btn-icon delete' title='Delete'><i class='fas fa-trash'></i> </a>";
-
-			if (!string.IsNullOrEmpty(lineMany))
-				list.Add(lineMany);
+            string lineTwo = "<a href='" + model.DataMenu().SubMenuUrlUpdate + x.Id + "' class='btn btn-sm btn-clean btn-icon' title='Update'><i class='fas fa-edit'></i> </a>";
+            lineTwo += "<a href='javascript:;' tagOperation='" + x.Id + "' class='btn btn-sm btn-clean btn-icon delete' title='Delete'><i class='fas fa-trash'></i> </a>";
+			list.Add(lineTwo);
 		}
 
 		public static void EndListAdd(this List<string> list, GetBaseResultFilter x)

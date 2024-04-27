@@ -1,0 +1,12 @@
+﻿@using Domain.Modules.Base.Consts
+@using Domain.Modules.Base.ViewModels
+@using Shared.Enums
+@model ValueViewModel
+
+<label for="@nameof(Model.RecordStatus)">@nameof(Model.RecordStatus)</label>
+<select id="@nameof(Model.RecordStatus)" name="@nameof(Model.RecordStatus)" class="form-control datatable-input" data-col-index="6">
+    <option value="@(RecordStatusEnum.AllRecords)">Select</option>
+    <option value="@(RecordStatusEnum.Actived)" @(Model.RecordStatus == RecordStatusEnum.Actived ? "selected" : "")>@RecordStatusEnum.Actived</option>
+    <option value="@(RecordStatusEnum.Inactived)" @(Model.RecordStatus == RecordStatusEnum.Inactived ? "selected" : "")>@RecordStatusEnum.Inactived</option>
+    <option value="@(RecordStatusEnum.Archived)" @(Model.RecordStatus == RecordStatusEnum.Archived ? "selected" : "")>@RecordStatusEnum.Archived</option>
+</select>

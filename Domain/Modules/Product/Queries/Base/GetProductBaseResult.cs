@@ -2,7 +2,7 @@
 
 namespace Domain.Modules.Product.Queries
 {
-	[Serializable]
+    [Serializable]
 	public class GetProductBaseResult : GetProductBase
 	{
 	}

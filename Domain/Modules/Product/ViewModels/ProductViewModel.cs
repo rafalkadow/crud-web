@@ -2,8 +2,6 @@
 using Domain.Modules.Base.Validations;
 using Domain.Modules.Base.ViewModels;
 using Domain.Modules.Product.Values;
-using System.ComponentModel.DataAnnotations;
-using Domain.Modules.CategoryOfProduct.Models;
 
 namespace Domain.Modules.Product.ViewModels
 {
@@ -16,7 +14,7 @@ namespace Domain.Modules.Product.ViewModels
 
         public Guid CategoryOfProductId { get; set; }
 
-        public virtual CategoryOfProductModel CategoryOfProduct { get; set; }
+        public string? CategoryOfProductName { get; set; }
 
         public decimal Value { get; set; }
         public DateTime DateUtc { get; set; }

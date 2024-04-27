@@ -5,6 +5,8 @@ using Domain.Modules.CategoryOfProduct.Models;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using Domain.Interfaces;
+using System.Xml;
+using Shared.Enums;
 
 namespace Application.Modules.CategoryOfProduct.Update
 {
@@ -14,6 +16,11 @@ namespace Application.Modules.CategoryOfProduct.Update
         public UpdateCategoryOfProductValidation(IDbContext dbContext, IDefinitionModel definitionModel)
             : base(dbContext, definitionModel)
         {
+            RuleFor(u => u.Id).Cascade(CascadeMode.Stop)
+                   .NotEmpty().NotNull().WithMessage("Enter the field value 'Id'")
+                   .Must(UniqueId)
+                   .WithMessage("The 'Id' field must be unique");
+
             RuleFor(u => u.Name).Cascade(CascadeMode.Stop)
                    .NotEmpty().WithMessage("Enter the field value 'Name'")
                    .Must(x => x.Length >= 1 && x.Length <= 20).WithMessage("Name should be between 1 and 20 characters")
@@ -25,6 +32,16 @@ namespace Application.Modules.CategoryOfProduct.Update
                    .Must(x => x.Length >= 1 && x.Length <= 20).WithMessage("Code should be between 1 and 20 characters")
                    .Must(UniqueCode)
                    .WithMessage("The 'Code' field must be unique");
+
+            RuleFor(u => u.RecordStatus).Cascade(CascadeMode.Stop)
+                 .NotNull().Must(x =>x != RecordStatusEnum.AllRecords).WithMessage("Enter the field value 'RecordStatus'");
+        }
+
+        private bool UniqueId(BaseCategoryOfProductCommand model, Guid? Id)
+        {
+            var result = false;
+            result = !DbContext.GetQueryable<CategoryOfProductModel>().AsNoTracking().Any(u => u.Id != model.Id && u.Id == Id);
+            return result;
         }
 
         private bool UniqueName(BaseCategoryOfProductCommand model, string name)

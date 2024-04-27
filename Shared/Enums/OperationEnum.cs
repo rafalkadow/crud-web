@@ -26,8 +26,8 @@ namespace Shared.Enums
 		[Description("Active")]
 		Active,
 
-		[Description("InActive")]
-		InActive,
+		[Description("Inactive")]
+		Inactive,
 
 		[Description("Archive")]
 		Archive,
@@ -38,12 +38,6 @@ namespace Shared.Enums
 		[Description("Last")]
 		Last,
 
-		[Description("Export")]
-		Export,
-
-		[Description("Import")]
-		Import,
-
 		[Description("View")]
 		View,
 
@@ -52,8 +46,5 @@ namespace Shared.Enums
 
 		[Description("Seed")]
 		Seed,
-
-        [Description("Job")]
-        Job,
     }
 }

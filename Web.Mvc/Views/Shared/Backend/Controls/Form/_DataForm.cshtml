@@ -1,0 +1,6 @@
+﻿@using Domain.Modules.Base.ViewModels
+
+@model ValueViewModel
+
+@Html.AntiForgeryToken()
+<input type="hidden" id="ControllerName" name="ControllerName" value="@Model.ControllerName()" />

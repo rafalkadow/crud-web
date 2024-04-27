@@ -5,6 +5,7 @@ using Domain.Modules.Product.Models;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using Domain.Interfaces;
+using Shared.Enums;
 
 namespace Application.Modules.Product.Create
 {
@@ -37,6 +38,9 @@ namespace Application.Modules.Product.Create
             RuleFor(f => f.DateTimeUtc).Cascade(CascadeMode.Stop).NotEmpty()
                     .Must(date => date != default(DateTime))
                     .WithMessage("The 'DateTimeUtc' is required");
+
+            RuleFor(u => u.RecordStatus).Cascade(CascadeMode.Stop)
+                 .NotNull().Must(x => x != RecordStatusEnum.AllRecords).WithMessage("Enter the field value 'RecordStatus'");
         }
 
         private bool UniqueName(BaseProductCommand model, string name)

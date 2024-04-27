@@ -1,5 +1,6 @@
 ﻿using Domain.Modules.Base.Menu;
 using Domain.Modules.Base.Models;
+using Shared.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Modules.Base.ViewModels
@@ -22,6 +23,12 @@ namespace Domain.Modules.Base.ViewModels
 		public ValueViewModel(IDefinitionModel model)
             : base(model)
         {
+            if (model != null && 
+               (model.OperationType == OperationEnum.Create 
+               || model.OperationType == OperationEnum.Update))
+            {
+                RecordStatus = RecordStatusEnum.Actived;
+            }
         }
 
         #endregion Constructors

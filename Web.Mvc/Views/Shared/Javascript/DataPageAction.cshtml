@@ -1,0 +1,81 @@
+﻿@using Domain.Modules.Base.ViewModels
+@using Shared.Enums
+@using Shared.Web
+@using Domain.Modules.Base.Consts
+@using Domain.Modules.Base.Enums
+@model ValueViewModel
+
+<script type="text/javascript">
+
+    var DataPageAction = function () {
+
+        var FormDeleteAction = function () {
+            var action = "@MyHttpContext.AppBaseUrl@Model.ControllerNameUrl()@Model.GetAction(@OperationEnum.Delete)";
+            return action;
+        };
+        var FormUpAction = function () {
+            var action = "@MyHttpContext.AppBaseUrl/@BaseConsts.Base@Model.GetAction(@OperationEnum.Up)";
+            return action;
+        };
+        var FormDownAction = function () {
+            var action = "@MyHttpContext.AppBaseUrl/@BaseConsts.Base@Model.GetAction(@OperationEnum.Down)";
+            return action;
+        };
+        var FormFirstAction = function () {
+            var action = "@MyHttpContext.AppBaseUrl/@BaseConsts.Base@Model.GetAction(@OperationEnum.First)";
+            return action;
+        };
+        var FormLastAction = function () {
+            var action = "@MyHttpContext.AppBaseUrl/@BaseConsts.Base@Model.GetAction(@OperationEnum.Last)";
+            return action;
+        };
+
+        var FormActiveAction = function () {
+            var action = "@MyHttpContext.AppBaseUrl/@BaseConsts.Base@Model.GetAction(@OperationEnum.Active)";
+            return action;
+        };
+
+        var FormInactiveAction = function () {
+            var action = "@MyHttpContext.AppBaseUrl/@BaseConsts.Base@Model.GetAction(@OperationEnum.Inactive)";
+            return action;
+        };
+
+        var FormArchiveAction = function () {
+            var action = "@MyHttpContext.AppBaseUrl/@BaseConsts.Base@Model.GetAction(@OperationEnum.Archive)";
+            return action;
+        };
+        return {
+            FormDeleteAction: function () {
+                return FormDeleteAction();
+            },
+
+            FormUpAction: function () {
+                return FormUpAction();
+            },
+
+            FormDownAction: function () {
+                return FormDownAction();
+            },
+
+            FormFirstAction: function () {
+                return FormFirstAction();
+            },
+
+            FormLastAction: function () {
+                return FormLastAction();
+            },
+
+            FormActiveAction: function () {
+                return FormActiveAction();
+            },
+
+            FormInactiveAction: function () {
+                return FormInactiveAction();
+            },
+
+            FormArchiveAction: function () {
+                return FormArchiveAction();
+            },
+        };
+    }();
+</script>

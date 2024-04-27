@@ -1,0 +1,187 @@
+﻿@using Domain.Modules.CategoryOfProduct.Consts
+@using Domain.Modules.CategoryOfProduct.ViewModels
+@using Domain.Modules.Base.Consts
+@using Shared.Enums
+@using Shared.Web
+@using Domain.Modules.Base.Extensions
+@using Web.Mvc.Consts
+
+@model CategoryOfProductViewModel
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>@Model.ModuleTitle()</h1>
+                </div>
+                    <div class="col-sm-6">
+                    <a class="btn btn-primary float-right" href="@($"{MyHttpContext.AppBaseUrl}/{CategoryOfProductConsts.Url}/{OperationEnum.Create.ToString().ToLower()}")">New</a>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- /.card -->
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">List</h3>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" data-parent="#accordionView" style="">
+                            <div class="card-body">
+
+                                <form id="search-data" class="mb-15" method="POST">
+                                    <div class="row mb-2">
+                                        <div class="col-lg-3 mb-lg-0 mb-6">
+                                            <label>@nameof(Model.Name) :</label>
+                                            <input id="@nameof(Model.Name)" name="@nameof(Model.Name)" type="text" class="form-control datatable-input" placeholder="@nameof(Model.Name)" data-col-index="2">
+                                        </div>
+
+                                        <div class="col-lg-3 mb-lg-0 mb-6">
+                                            <label>@nameof(Model.Code) :</label>
+                                            <input id="@nameof(Model.Code)" name="@nameof(Model.Code)" type="text" class="form-control datatable-input" placeholder="@nameof(Model.Code)" data-col-index="3">
+                                        </div>
+                                        <div class="col-lg-3 mb-lg-0 mb-6 text-left">
+
+                                            <label>Created Date	:</label>
+                                            <div class="input-daterange input-group">
+                                                <div class="col-sm-6">
+                                                    <div class="icheck-primary d-inline">
+                                                        <div class="input-group date date-picker date-picker-class" id="@nameof(Model.CreatedFrom)Control" data-target-input="nearest">
+                                                            <input id="@nameof(Model.CreatedFrom)" name="@nameof(Model.CreatedFrom)" value="@Model.CreatedFrom" type="text" class="form-control datetimepicker-input" data-target="#@nameof(Model.CreatedFrom)Control" />
+                                                            <div class="input-group-append" data-target="#@nameof(Model.CreatedFrom)Control" data-toggle="datetimepicker">
+                                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="icheck-primary d-inline">
+                                                        <div class="input-group date date-picker date-picker-class" id="@nameof(Model.CreatedTo)Control" data-target-input="nearest">
+                                                            <input id="@nameof(Model.CreatedTo)" name="@nameof(Model.CreatedTo)" value="@Model.CreatedTo" type="text" class="form-control datetimepicker-input" data-target="#@nameof(Model.CreatedTo)Control" />
+                                                            <div class="input-group-append" data-target="#@nameof(Model.CreatedTo)Control" data-toggle="datetimepicker">
+                                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-3 mb-lg-0 mb-6 text-left">
+                                            @await Html.PartialAsync(ViewConsts.RecordStatus, Model)
+                                        </div>
+                                    </div>
+
+                                    <div class="row  mb-2">
+                                        <div class="col-lg-3 mb-lg-0 mb-6 text-left">
+                                        </div>
+                                        <div class="col-lg-3 mb-lg-0 mb-6">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-lg-3 mb-lg-0 mb-6 text-left">
+
+                                            <button class="btn btn-primary btn-primary--icon" id="searchButton">
+                                                <span>
+                                                    <i class="la la-search"></i>
+                                                    <span>Search</span>
+                                                </span>
+                                            </button>
+                                            <button class="btn btn-secondary btn-secondary--icon" id="resetButton">
+                                                <span>
+                                                    <i class="la la-close"></i>
+                                                    <span>Reset</span>
+                                                </span>
+                                            </button>
+
+                                        </div>
+                                        <div class="col-lg-3 mb-lg-0 mb-6 text-left">
+                                        </div>
+                                        <div class="col-lg-3 mb-lg-0 mb-6 text-left">
+                                        </div>
+                                        <div class="col-lg-3 mb-lg-0 mb-6">
+                                        </div>
+                                    </div>
+
+                                    @await Html.PartialAsync(ViewConsts.StatusOperation, Model)
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form id="@Model.FormListName()" method="POST">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" id="ControllerName" name="ControllerName" value="@Model.ControllerName()" />
+                            <div id="messageApplication">
+                            </div>
+                            <table id="@Model.TableName()" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                    <tr>
+                                        <th width='1%'>
+                                            <label class='mt-checkbox mt-checkbox-single mt-checkbox-outline'>
+                                                <input type='checkbox' class='group-checkable' data-set=' .checkboxes' />
+                                                <span></span>
+                                            </label>
+                                        </th>
+                                        <th>Actions</th>
+                                        <th>Name</th>
+                                        <th>Code</th>
+                                        <th>Created By</th>
+                                        <th>Created Date</th>
+                                        <th>Modified By</th>
+                                        <th>Modified Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th width='1%'>
+                                            <label class='mt-checkbox mt-checkbox-single mt-checkbox-outline'>
+                                                <input type='checkbox' class='group-checkable' data-set=' .checkboxes' />
+                                                <span></span>
+                                            </label>
+                                        </th>
+                                        <th>Actions</th>
+                                        <th>Name</th>
+                                        <th>Code</th>
+                                        <th>Created By</th>
+                                        <th>Created Date</th>
+                                        <th>Modified By</th>
+                                        <th>Modified Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
