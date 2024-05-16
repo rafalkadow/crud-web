@@ -34,7 +34,7 @@ namespace Test.Application.NUnit.Handlers.CategoryOfProduct.Create
                 };
 
                 var result = await handler.Handle(item, CancellationToken.None);
-                Assert.That(result.OperationStatus);
+                Assert.That(result.Success);
             }
 
             Assert.That(CategoryOfProductCount + countRecord == _dbContext.CategoryOfProduct.Count());
@@ -81,7 +81,7 @@ namespace Test.Application.NUnit.Handlers.CategoryOfProduct.Create
                 Code = randomString,
             };
             var result = await handler.Handle(item, CancellationToken.None);
-            Assert.That(result.OperationStatus);
+            Assert.That(result.Success);
 
             var foo = Assert.ThrowsAsync<ArgumentException>(
                async () =>

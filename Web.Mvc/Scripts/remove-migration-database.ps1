@@ -1,1 +1,1 @@
-﻿dotnet ef migrations remove  --project ../../Persistence/Persistence.csproj --startup-project ../../Web/Web.Mvc.csproj --force
+﻿dotnet ef migrations remove  --project ../../Persistence/Persistence.csproj --startup-project ../../Web.Mvc/Web.Mvc.csproj --force

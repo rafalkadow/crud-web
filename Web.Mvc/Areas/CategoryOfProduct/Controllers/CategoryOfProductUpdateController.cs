@@ -44,8 +44,8 @@ namespace Web.Areas.CategoryOfProduct.Controllers
         {
             logger.Info($"Index(guid='{guid}')");
             var model = new CategoryOfProductViewModel(definitionModel);
-            var findElement = (GetCategoryOfProductResultById?) await  mediator.Send(new GetCategoryOfProductQueryById(guid));
-            if (findElement == null || findElement.Id == Guid.Empty)
+            var findElement =  await  mediator.Send(new GetCategoryOfProductQueryById(guid));
+            if (findElement == null || !findElement.Success || findElement.Data == null || findElement.Data.Id == Guid.Empty)
             {
                 return this.Redirect404(this.Request.GetDisplayUrl());
             }
@@ -60,8 +60,8 @@ namespace Web.Areas.CategoryOfProduct.Controllers
         public async Task<IActionResult> Action([FromForm] UpdateCategoryOfProductCommand command)
         {
             logger.Info($"Action(command='{command.RenderProperties()}')");
-            var operationResult = await mediator.Send(command);
-            return this.SwitchResultJson(operationResult);
+            var response = await mediator.Send(command);
+            return this.SwitchResultJson(response);
         }
     }
 }

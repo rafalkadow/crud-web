@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Domain.Modules.Communication.Generics;
+using MediatR;
 using Shared.Enums;
 using Shared.Interfaces;
 using Shared.Models;
@@ -6,7 +7,7 @@ using Shared.Models;
 namespace Domain.Modules.Base.Commands
 {
     [Serializable]
-    public class BaseInactiveCommand : BaseActionCommand, IRequest<OperationResult>, ICommand
+    public class BaseInactiveCommand : BaseActionCommand, IRequest<ServiceResponse<OperationResult>>, ICommand
     {
         public RecordStatusEnum RecordStatus { get; set; }
     }

@@ -11,20 +11,32 @@ using Shared.Interfaces;
 using Shared.Helpers;
 using Domain.Modules.Product.Models;
 using Microsoft.Extensions.Logging;
+using Domain.Modules.Product;
+using Domain.Modules.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Persistence.Context
 {
-    public class ApplicationDbContext : DbContext, IDbContext
+    public class ApplicationDbContext : IdentityDbContext<UserApp, RoleApp, Guid, IdentityUserClaim<Guid>,
+                                    UserRoleApp, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>,
+                                    IdentityUserToken<Guid>>, IDbContext
     {
         public DbSet<Audit> Audits { get; set; }
         public DbSet<AccountModel> Account { get; set; }
         public DbSet<CategoryOfProductModel> CategoryOfProduct { get; set; }
         public DbSet<ProductModel> Product { get; set; }
 
+        public DbSet<ProductApp> Products { get; set; }
+        public DbSet<ProductStockApp> ProductStocks { get; set; }
+
+
         private ILogger<ApplicationDbContext> _logger { get; set; }
 
         private IUserAccessor _userAccessor { get; set; }
-
+        public ApplicationDbContext()
+        {
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="options" /> class.
         /// </summary>
@@ -56,7 +68,7 @@ namespace Persistence.Context
                 .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IAssemblyDomainMarker).Assembly);
             //UTC Time
             var dateTimeConverter = new ValueConverter<DateTime, DateTime>(
                 v => v.FromDefaultTimeZoneToUtc(),
@@ -156,7 +168,7 @@ namespace Persistence.Context
             return Task.CompletedTask;
         }
 
-        public async Task SaveChangesAsync()
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             foreach (var entry in ChangeTracker.Entries<BaseModel>().ToList())
             {
@@ -179,7 +191,7 @@ namespace Persistence.Context
             if (_userAccessor != null && _userAccessor.UserGuid != Guid.Empty)
                 await AuditLogging();
 
-            await base.SaveChangesAsync();
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<IDbContextTransaction> BeginTransactionAsync()

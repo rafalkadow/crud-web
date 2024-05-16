@@ -9,6 +9,8 @@ using Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Extensions.GeneralExtensions;
 using MediatR;
+using Domain.Modules.Communication.Generics;
+using Shared.Models;
 
 namespace Web.Areas.Base.Controllers
 {
@@ -33,8 +35,8 @@ namespace Web.Areas.Base.Controllers
         public async Task<IActionResult> Action([FromForm] BaseFirstCommand command)
         {
             logger.Info($"Action(command='{command.RenderProperties()}')");
-            var operationResult = await mediator.Send(command);
-            return this.SwitchResultJson(operationResult);
+            var response = await mediator.Send(command) as ServiceResponse<OperationResult>;
+            return this.SwitchResultJson(response);
         }
     }
 }

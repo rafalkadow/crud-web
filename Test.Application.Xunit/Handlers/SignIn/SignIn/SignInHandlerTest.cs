@@ -31,7 +31,7 @@ namespace Test.Application.Xunit.Handlers.SignIn.Create
                 SignInPassword = "pass123",
             };
             var result = await handler.Handle(item, CancellationToken.None);
-            Assert.True(result.OperationStatus);
+            Assert.True(result.Success);
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace Test.Application.Xunit.Handlers.SignIn.Create
                 SignInPassword = "pass123",
             };
             var result = await handler.Handle(item, CancellationToken.None);
-            Assert.False(result.OperationStatus);
+            Assert.False(result.Success);
         }
 
     }

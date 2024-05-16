@@ -22,7 +22,7 @@ namespace Test.Application.Xunit.Handlers.CategoryOfProduct.Queries
             var item = new GetCategoryOfProductQueryById(new Guid(guid));
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.True(result.Id == new Guid(guid));
+            Assert.True(result.Data.Id == new Guid(guid));
         }
 
         [Theory]

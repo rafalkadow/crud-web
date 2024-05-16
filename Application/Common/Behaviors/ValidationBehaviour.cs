@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using Domain.Modules.Communication;
+using Domain.Modules.Communication.Generics;
+using FluentValidation;
 using MediatR;
 using Shared.Models;
 
@@ -23,11 +25,14 @@ namespace Application.Common.Behaviors
                 var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
                 var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
 
-                if (failures.Count != 0)
+                if (failures.Any())
                 {
-                    var operationResult = new OperationResult(false);
-                    operationResult.FailureAdd(failures);
-                    return (TResponse)(dynamic)operationResult;
+                    //var operationResult = new OperationResult(false);
+                    //operationResult.FailureAdd(failures);
+                    var response = new ServiceResponse<OperationResult>();
+                    response.HandleErrorParameter(validationResults.First());
+                    //response.FailureAdd(failures);
+                    return (TResponse)(dynamic)response;
                 }
             }
             return await next();

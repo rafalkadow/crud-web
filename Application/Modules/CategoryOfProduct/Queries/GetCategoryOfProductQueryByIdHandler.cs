@@ -6,18 +6,19 @@ using Microsoft.EntityFrameworkCore;
 using Shared.Extensions.GeneralExtensions;
 using MediatR;
 using Application.Modules.Base.Queries;
+using Domain.Modules.Communication.Generics;
 
 namespace Application.Modules.CategoryOfProduct.Queries
 {
     [Serializable]
-	public class GetCategoryOfProductQueryByIdHandler : BaseQueryHandler, IRequestHandler<GetCategoryOfProductQueryById, GetCategoryOfProductResultById>
+	public class GetCategoryOfProductQueryByIdHandler : BaseQueryHandler, IRequestHandler<GetCategoryOfProductQueryById, ServiceResponse<GetCategoryOfProductResultById>>
 	{
 		public GetCategoryOfProductQueryByIdHandler(IDbContext dbContext, IMapper mapper, IUserAccessor userAccessor)
 			: base(dbContext, mapper, userAccessor)
 		{
 		}
 
-		public async Task<GetCategoryOfProductResultById> Handle(GetCategoryOfProductQueryById filter, CancellationToken cancellationToken)
+		public async Task<ServiceResponse<GetCategoryOfProductResultById>> Handle(GetCategoryOfProductQueryById filter, CancellationToken cancellationToken)
 		{
 			logger.Debug($"Handle(filter='{filter.RenderProperties()}', cancellationToken='{cancellationToken}')");
             GetCategoryOfProductResultById? model = null;
@@ -44,7 +45,7 @@ namespace Application.Modules.CategoryOfProduct.Queries
                 if (modelDb != null)
                     model = Mapper.Map<GetCategoryOfProductResultById>(modelDb);
 
-                return model;
+                return new ServiceResponse<GetCategoryOfProductResultById>(model);
             }
 			catch (Exception ex)
 			{

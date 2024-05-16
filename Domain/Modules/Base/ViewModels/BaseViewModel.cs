@@ -8,7 +8,7 @@ namespace Domain.Modules.Base.ViewModels
     {
         public Guid Id { get; set; }
 
-        public Guid CreatedUserId { get; set; }
+        public Guid? CreatedUserId { get; set; }
 
         public string? CreatedUserName { get; set; }
 
@@ -28,8 +28,7 @@ namespace Domain.Modules.Base.ViewModels
 
         public ulong OrderId { get; set; }
 
-        public string GetCurrentDateTime
-        { get { return DateTime.UtcNow.ToLocalTime().ToShortDateString(); } }
+        public string GetCurrentDateTime { get { return DateTime.UtcNow.ToLocalTime().ToShortDateString(); } }
 
         public object Clone()
         {

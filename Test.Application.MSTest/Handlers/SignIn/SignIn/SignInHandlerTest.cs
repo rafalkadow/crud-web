@@ -32,7 +32,7 @@ namespace Test.Application.MSTest.Handlers.SignIn.Create
                 SignInPassword = "pass123",
             };
             var result = await handler.Handle(item, CancellationToken.None);
-            Assert.IsTrue(result.OperationStatus);
+            Assert.IsTrue(result.Success);
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace Test.Application.MSTest.Handlers.SignIn.Create
                 SignInPassword = "pass123",
             };
             var result = await handler.Handle(item, CancellationToken.None);
-            Assert.IsFalse(result.OperationStatus);
+            Assert.IsFalse(result.Success);
         }
 
     }

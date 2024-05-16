@@ -34,7 +34,7 @@ namespace Test.Application.Xunit.Handlers.Product.Create
                 };
 
                 var result = await handler.Handle(item, CancellationToken.None);
-                Assert.True(result.OperationStatus);
+                Assert.True(result.Success);
             }
 
             Assert.Equal(ProductCount + countRecord, _dbContext.Product.Count());
@@ -78,7 +78,7 @@ namespace Test.Application.Xunit.Handlers.Product.Create
                 Code = randomString,
             };
             var result = await handler.Handle(item, CancellationToken.None);
-            Assert.True(result.OperationStatus);
+            Assert.True(result.Success);
 
             var exception = await Assert.ThrowsAnyAsync<Exception>(() => handler.Handle(item, CancellationToken.None));
             Assert.True(!string.IsNullOrEmpty(exception.Message));

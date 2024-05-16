@@ -23,7 +23,7 @@ namespace Test.Application.NUnit.Handlers.CategoryOfProduct.Queries
             var item = new GetCategoryOfProductQueryById(new Guid(guid));
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.That(result.Id == new Guid(guid));
+            Assert.That(result.Data.Id == new Guid(guid));
         }
 
         [Test]

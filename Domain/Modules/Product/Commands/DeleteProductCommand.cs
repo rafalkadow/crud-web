@@ -1,4 +1,4 @@
-﻿using Domain.Modules.Base.Commands;
+﻿using Domain.Modules.Communication.Generics;
 using MediatR;
 using Shared.Interfaces;
 using Shared.Models;
@@ -6,7 +6,8 @@ using Shared.Models;
 namespace Domain.Modules.Product.Commands
 {
     [Serializable]
-    public class DeleteProductCommand : BaseActionCommand, IRequest<OperationResult>, ICommand
+    public class DeleteProductCommand : IRequest<ServiceResponse<OperationResult>>, ICommand
     {
+        public ICollection<Guid> GuidList { get; set; }
     }
 }

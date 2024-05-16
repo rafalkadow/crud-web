@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Extensions.GeneralExtensions;
 using MediatR;
 using Domain.Modules.Product.Commands;
+using Domain.Modules.Communication.Generics;
+using Shared.Models;
 
 namespace Web.Areas.Product.Controllers
 {
@@ -39,8 +41,8 @@ namespace Web.Areas.Product.Controllers
         public async Task<IActionResult> Action([FromForm] DeleteProductCommand command)
         {
             logger.Info($"Action(command='{command.RenderProperties()}')");
-            var operationResult = await mediator.Send(command);
-            return this.SwitchResultJson(operationResult);
+            var response = await mediator.Send(command) as ServiceResponse<OperationResult>;
+            return this.SwitchResultJson(response);
         }
     }
 }

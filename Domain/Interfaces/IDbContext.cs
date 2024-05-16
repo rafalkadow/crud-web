@@ -10,7 +10,6 @@ namespace Domain.Interfaces
 {
     public interface IDbContext
     {
-
         public DbSet<Audit> Audits { get; set; }
         public DbSet<AccountModel> Account { get; set; }
         public DbSet<CategoryOfProductModel> CategoryOfProduct { get; set; }
@@ -36,7 +35,7 @@ namespace Domain.Interfaces
         Task DeleteRangeAsync<TEntity>(IList<TEntity> entity)
             where TEntity : class, IEntity;
 
-        Task SaveChangesAsync();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         Task<IDbContextTransaction> BeginTransactionAsync();
         Task CommitTransactionAsync();

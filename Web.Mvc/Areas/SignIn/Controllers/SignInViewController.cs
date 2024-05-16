@@ -12,6 +12,8 @@ using Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Extensions.GeneralExtensions;
 using MediatR;
+using Domain.Modules.Communication.Generics;
+using Shared.Models;
 
 namespace Web.Areas.SignIn.Controllers
 {
@@ -53,8 +55,8 @@ namespace Web.Areas.SignIn.Controllers
         public async Task<IActionResult> Action([FromForm] SignInCommand command)
         {
             logger.Info($"Action(command='{command.RenderProperties()}')");
-            var operationResult = await mediator.Send(command);
-            return this.SignInUserToApplication(command, operationResult);
+            var response = await mediator.Send(command) as ServiceResponse<OperationResult>;
+            return this.SignInUserToApplication(command, response);
         }
     }
 }

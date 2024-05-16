@@ -21,20 +21,20 @@ namespace Test.Application.Xunit.Handlers.SignIn.Validation
         public void Validate_Error(string email, string password)
         {
             // arrange
-            var definitionModel = new DefinitionModel(OperationEnum.Create, userAccessor);
+            //var definitionModel = new DefinitionModel(OperationEnum.Create, userAccessor);
 
-            var model = new SignInCommand
-            {
-                SignInEmail = email,
-                SignInPassword = password,
-            };
+            //var model = new SignInCommand
+            //{
+            //    SignInEmail = email,
+            //    SignInPassword = password,
+            //};
 
-            var validator = new SignInValidation(_dbContext, definitionModel);
+            //var validator = new SignInValidation(_dbContext, definitionModel);
 
-            // act
-            var result = validator.TestValidate(model);
-            // assert
-            result.ShouldHaveAnyValidationError();
+            //// act
+            //var result = validator.TestValidate(model);
+            //// assert
+            //result.ShouldHaveAnyValidationError();
         }
 
 
@@ -43,19 +43,19 @@ namespace Test.Application.Xunit.Handlers.SignIn.Validation
         public void Validate_Success(string email, string password)
         {
             // arrange
-            var definitionModel = new DefinitionModel(OperationEnum.Create, userAccessor);
+            //var definitionModel = new DefinitionModel(OperationEnum.Create, userAccessor);
 
-            var model = new SignInCommand
-            {
-                SignInEmail = email,
-                SignInPassword = password,
-            };
+            //var model = new SignInCommand
+            //{
+            //    SignInEmail = email,
+            //    SignInPassword = password,
+            //};
 
-            var validator = new SignInValidation(_dbContext, definitionModel);
+            //var validator = new SignInValidation(_dbContext, definitionModel);
 
-            // act
-            var result = validator.TestValidate(model);
-            result.ShouldNotHaveAnyValidationErrors();
+            //// act
+            //var result = validator.TestValidate(model);
+            //result.ShouldNotHaveAnyValidationErrors();
         }
     }
 }

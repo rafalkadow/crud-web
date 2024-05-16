@@ -23,7 +23,7 @@ namespace Test.Application.MSTest.Handlers.CategoryOfProduct.Queries
             var item = new GetCategoryOfProductQueryById(new Guid(guid));
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.IsTrue(result.Id == new Guid(guid));
+            Assert.IsTrue(result.Data.Id == new Guid(guid));
         }
 
         [TestMethod]

@@ -24,7 +24,7 @@ namespace Test.Application.Xunit.Handlers.Product.Delete
             };
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.True(result.OperationStatus);
+            Assert.True(result.Success);
         }
 
         [Theory]
@@ -42,7 +42,7 @@ namespace Test.Application.Xunit.Handlers.Product.Delete
             };
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.False(result.OperationStatus);
+            Assert.False(result.Success);
         }
     }
 }

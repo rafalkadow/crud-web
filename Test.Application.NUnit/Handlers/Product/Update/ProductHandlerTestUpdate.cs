@@ -31,7 +31,7 @@ namespace Test.Application.NUnit.Handlers.Product.Update
             };
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.That(result.OperationStatus);
+            Assert.That(result.Success);
 
         }
 
@@ -55,7 +55,7 @@ namespace Test.Application.NUnit.Handlers.Product.Update
             };
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.That(result.OperationStatus == false);
+            Assert.That(result.Success == false);
 
         }
     }

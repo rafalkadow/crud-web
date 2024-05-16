@@ -7,6 +7,7 @@ using Application.Modules.Product.Create;
 using Application.Modules.CategoryOfProduct.Queries;
 using Domain.Modules.CategoryOfProduct.Queries;
 using Shared.Helpers;
+using Domain.Modules.Communication.Generics;
 
 namespace Application.Modules.Product.Seeder
 {
@@ -18,7 +19,7 @@ namespace Application.Modules.Product.Seeder
         {
         }
 
-        public async Task<OperationResult> Data()
+        public async Task<ServiceResponse<OperationResult>> Data()
         {
             logger.Info($"Data()");
             try
@@ -43,7 +44,7 @@ namespace Application.Modules.Product.Seeder
                     item.DateTimeUtc = dateList[1];
 
                     var result = await commandHandlerProduct.Handle(item, CancellationToken.None);
-                    if (!result.OperationStatus)
+                    if (!result.Success)
                         return result;
                 }
             }
@@ -51,7 +52,7 @@ namespace Application.Modules.Product.Seeder
             {
                 logger.Error($"Data(ex='{ex.ToString()}')");
             }
-			return new OperationResult(true);
-		}
+			return new ServiceResponse<OperationResult>(new OperationResult(true));
+        }
     }
 }

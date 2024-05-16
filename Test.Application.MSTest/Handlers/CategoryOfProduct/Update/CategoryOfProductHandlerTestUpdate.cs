@@ -31,7 +31,7 @@ namespace Test.Application.MSTest.Handlers.CategoryOfProduct.Update
             };
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.IsTrue(result.OperationStatus);
+            Assert.IsTrue(result.Data.OperationStatus);
 
         }
 
@@ -55,7 +55,7 @@ namespace Test.Application.MSTest.Handlers.CategoryOfProduct.Update
             };
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.IsFalse(result.OperationStatus);
+            Assert.IsFalse(result.Data.OperationStatus);
 
         }
     }

@@ -1,11 +1,12 @@
-﻿ using MediatR;
+﻿using Domain.Modules.Communication.Generics;
+using MediatR;
 using Shared.Interfaces;
 using Shared.Models;
 
 namespace Domain.Modules.Base.Commands
 {
     [Serializable]
-    public class BaseLastCommand : BaseActionCommand, IRequest<OperationResult>, ICommand
+    public class BaseLastCommand : BaseActionCommand, IRequest<ServiceResponse<OperationResult>>, ICommand
     {
         public ulong OrderId { get; set; }
     }

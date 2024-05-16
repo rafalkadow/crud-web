@@ -49,8 +49,8 @@ namespace Web.Areas.Product.Controllers
         public async Task<IActionResult> Action([FromForm] CreateProductCommand command)
         {
             logger.Info($"Action(command='{command.RenderProperties()}')");
-            var operationResult = await mediator.Send(command);
-            return this.SwitchResultJson(operationResult);
+            var response = await mediator.Send(command);
+            return this.SwitchResultJson(response);
         }
     }
 }

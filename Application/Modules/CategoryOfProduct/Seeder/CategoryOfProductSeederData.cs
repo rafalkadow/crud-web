@@ -5,6 +5,8 @@ using Shared.Models;
 using Application.Modules.Base.Seeder;
 using Application.Modules.CategoryOfProduct.Create;
 using NLog;
+using Domain.Modules.Communication.Generics;
+using Shared.Enums;
 
 namespace Application.Modules.CategoryOfProduct.Seeder
 {
@@ -16,7 +18,7 @@ namespace Application.Modules.CategoryOfProduct.Seeder
         {
         }
 
-        public async Task<OperationResult> Data()
+        public async Task<ServiceResponse<OperationResult>> Data()
         {
             logger.Info($"Data()");
             try
@@ -27,7 +29,7 @@ namespace Application.Modules.CategoryOfProduct.Seeder
                 {
                     var item = new CreateCategoryOfProductCommand() { Name = $"CategoryOfProduct{i + 1}", Code = $"Code{i + 1}", };
                     var result = await commandHandlerCategoryOfProduct.Handle(item, CancellationToken.None);
-                    if (!result.OperationStatus)
+                    if (!result.Success)
                         return result;
                 }
             }
@@ -35,7 +37,7 @@ namespace Application.Modules.CategoryOfProduct.Seeder
             {
                 logger.Error($"Data(ex='{ex.ToString()}')");
             }
-			return new OperationResult(true);
+            return new ServiceResponse<OperationResult>(new OperationResult(true));
 		}
     }
 }

@@ -7,20 +7,20 @@ using Shared.Models;
 using Microsoft.EntityFrameworkCore;
 using Shared.Extensions.GeneralExtensions;
 using MediatR;
-using NLog;
 using Application.Modules.Base.Commands;
+using Domain.Modules.Communication.Generics;
 
 namespace Application.Modules.CategoryOfProduct.Delete
 {
     [Serializable]
-    public class DeleteCategoryOfProductHandler : BaseCommandHandler, IRequestHandler<DeleteCategoryOfProductCommand, OperationResult>
+    public class DeleteCategoryOfProductHandler : BaseCommandHandler, IRequestHandler<DeleteCategoryOfProductCommand, ServiceResponse<OperationResult>>
     {
         public DeleteCategoryOfProductHandler(IDbContext dbContext, IMapper mapper, IUserAccessor userAccessor)
             : base(dbContext, mapper, userAccessor)
         {
         }
 
-        public async Task<OperationResult> Handle(DeleteCategoryOfProductCommand command, CancellationToken cancellationToken)
+        public async Task<ServiceResponse<OperationResult>> Handle(DeleteCategoryOfProductCommand command, CancellationToken cancellationToken)
         {
             logger.Info($"Handle(filter='{command.RenderProperties()}', cancellationToken='{cancellationToken}')");
             try
@@ -33,12 +33,12 @@ namespace Application.Modules.CategoryOfProduct.Delete
 
                     if (model == null || model.Id == Guid.Empty)
                     {
-                        return new OperationResult(false);
+                        return new ServiceResponse<OperationResult>(new OperationResult(false));
                     }
                     await DbContext.DeleteAsync(model);
                     await DbContext.SaveChangesAsync();
                 }
-                return new OperationResult(true, OperationEnum.Delete);
+                return new ServiceResponse<OperationResult>(new OperationResult(true, OperationEnum.Delete));
             }
             catch (Exception ex)
             {

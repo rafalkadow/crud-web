@@ -3,15 +3,20 @@ using Shared.Enums;
 using FluentValidation.Results;
 using Shared.Validation;
 using Shared.Attributes;
+using NSwag.Annotations;
+using Newtonsoft.Json;
 
 namespace Shared.Models
 {
     [Serializable]
     public class OperationResult
     {
-        [SwaggerIgnore]
+        //[SwaggerIgnore]
+        //[Attributes.SwaggerIgnore]
+        //[OpenApiIgnore]
+        [JsonIgnore]
         public Guid? EntityId { get; set; }
-        [SwaggerIgnore]
+        [JsonIgnore]
         public IEntity entity { get; set; }
 		public string Message { get; set; }
 
@@ -21,10 +26,11 @@ namespace Shared.Models
 
 		public IEnumerable<ErrorMessage> Errors { get; private set; }
 		public OperationEnum Operation { get; set; }
+        [JsonIgnore]
+        public string GuidRecord { get; set; }
+        public Guid? Id { get; set; }
 
-		public string GuidRecord { get; set; }
-
-		public OperationResult(bool operationStatus)
+        public OperationResult(bool operationStatus)
 		{
             OperationStatus = operationStatus;
 		}

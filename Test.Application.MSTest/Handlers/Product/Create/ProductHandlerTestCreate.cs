@@ -35,7 +35,7 @@ namespace Test.Application.MSTest.Handlers.Product.Create
                 };
 
                 var result = await handler.Handle(item, CancellationToken.None);
-                Assert.IsTrue(result.OperationStatus);
+                Assert.IsTrue(result.Success);
             }
 
             Assert.AreEqual(ProductCount + countRecord, _dbContext.Product.Count());
@@ -60,7 +60,7 @@ namespace Test.Application.MSTest.Handlers.Product.Create
             };
 
             var result = await handler.Handle(item, CancellationToken.None);
-            Assert.IsTrue(result.OperationStatus);
+            Assert.IsTrue(result.Success);
 
         }
 
@@ -83,10 +83,10 @@ namespace Test.Application.MSTest.Handlers.Product.Create
                 Code = randomString,
             };
             var result = await handler.Handle(item, CancellationToken.None);
-            Assert.IsTrue(result.OperationStatus);
+            Assert.IsTrue(result.Success);
 
             result = await handler.Handle(item, CancellationToken.None);
-            Assert.IsTrue(result.OperationStatus);
+            Assert.IsTrue(result.Success);
         }
     }
 }

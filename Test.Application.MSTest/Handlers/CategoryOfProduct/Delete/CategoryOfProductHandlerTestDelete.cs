@@ -25,7 +25,7 @@ namespace Test.Application.MSTest.Handlers.CategoryOfProduct.Delete
             };
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.IsTrue(result.OperationStatus);
+            Assert.IsTrue(result.Success);
         }
 
         [TestMethod]
@@ -43,7 +43,7 @@ namespace Test.Application.MSTest.Handlers.CategoryOfProduct.Delete
             };
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.IsFalse(result.OperationStatus);
+            Assert.IsFalse(result.Success);
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Application.Extensions;
-using Application.Utilities;
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Modules.Base.App;
 using Domain.Modules.Base.Commands;
 using Domain.Modules.Base.Enums;
 using Domain.Modules.Base.Models;
+using Domain.Modules.Communication.Generics;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enums;
 using Shared.Extensions.GeneralExtensions;
@@ -25,9 +25,9 @@ namespace Application.Modules.Base.Commands
             UserAccessor = userAccessor;
         }
 
-        public async Task<OperationResult> CommandChoiceActionAsync(OperationCommandModel operation)
+        public async Task<ServiceResponse<OperationResult>> CommandChoiceAsync(OperationModel operation)
         {
-            logger.Info($"CommandChoiceActionAsync(operation='{operation.RenderProperties()}')");
+            logger.Info($"CommandChoiceAsync(operation='{operation.RenderProperties()}')");
             try
             {
                 string controllerName = operation.ControllerName;
@@ -37,21 +37,20 @@ namespace Application.Modules.Base.Commands
 
                 MethodInfo method = typeof(IBaseHandlerUtility).GetMethod(nameof(IBaseHandlerUtility.CommandActionAsync));
                 MethodInfo generic = method.MakeGenericMethod(objectType);
-                var operationResult = await generic.InvokeAsync<OperationResult>(this, new[] { operation, null });
-                if (operationResult != null && operationResult.OperationStatus)
-                    return operationResult;
+                var response = await generic.InvokeAsync<ServiceResponse<OperationResult>>(this, new[] { operation, null });
+                if (response != null && response.Success)
+                    return response;
             }
             catch (Exception ex)
             {
-                logger.Error($"CommandActionAsync(ex='{ex.ToString()}')");
+                logger.Error($"CommandChoiceAsync(ex='{ex.ToString()}')");
                 throw;
             }
-            return new OperationResult(false, "Not exists CommandChoiceActionAsync element");
-            //ToAddData
+            return new ServiceResponse<OperationResult>(new OperationResult(false) { ErrorMessage = "No found action on CommandChoiceAsync method." });
         }
 
 
-        public async Task<OperationResult> CommandActionAsync<T>(OperationCommandModel commandModel, Func<T, bool> condition = null) where T : class, IEntity
+        public async Task<ServiceResponse<OperationResult>> CommandActionAsync<T>(OperationModel commandModel, Func<T, bool> condition = null) where T : class, IEntity
         {
             logger.Info($"CommandActionAsync(commandModel='{commandModel.RenderProperties()}')");
             try
@@ -65,7 +64,7 @@ namespace Application.Modules.Base.Commands
 
                 if (model == null || model.Id == Guid.Empty)
                 {
-                    return new OperationResult(false, "Not found module", OperationEnum.Update);
+                    return new ServiceResponse<OperationResult>(new OperationResult(false) { ErrorMessage = "No found data." });
                 }
                 else if (operation == OperationEnum.Active)
                 {
@@ -104,7 +103,7 @@ namespace Application.Modules.Base.Commands
                 }
                 else
                 {
-                    return new OperationResult(false, "Not found operation to execution", OperationEnum.Update);
+                    return new ServiceResponse<OperationResult>(new OperationResult(false) { ErrorMessage = "No found operation to execution." });
                 }
             }
             catch (Exception ex)
@@ -114,45 +113,44 @@ namespace Application.Modules.Base.Commands
             }
         }
 
-        private async Task<OperationResult> ActiveMethod<T>(T model) where T : class, IEntity
+        private async Task<ServiceResponse<OperationResult>> ActiveMethod<T>(T model) where T : class, IEntity
         {
             var command = new BaseActiveCommand
             {
                 RecordStatus = RecordStatusEnum.Actived
             };
             await DbContext.UpdatePropertiesAsync(model, command, UserAccessor);
-            return new OperationResult(true);
+            return new ServiceResponse<OperationResult>(new OperationResult(true, OperationEnum.Active));
         }
 
-        private async Task<OperationResult> InactiveMethod<T>(T model) where T : class, IEntity
+        private async Task<ServiceResponse<OperationResult>> InactiveMethod<T>(T model) where T : class, IEntity
         {
             var command = new BaseInactiveCommand
             {
                 RecordStatus = RecordStatusEnum.Inactived
             };
             await DbContext.UpdatePropertiesAsync(model, command, UserAccessor);
-            return new OperationResult(true);
+            return new ServiceResponse<OperationResult>(new OperationResult(true, OperationEnum.Inactive));
         }
 
-        private async Task<OperationResult> ArchiveMethod<T>(T model) where T : class, IEntity
+        private async Task<ServiceResponse<OperationResult>> ArchiveMethod<T>(T model) where T : class, IEntity
         {
             var command = new BaseArchiveCommand
             {
                 RecordStatus = RecordStatusEnum.Archived
             };
             await DbContext.UpdatePropertiesAsync(model, command, UserAccessor);
-            return new OperationResult(true);
+            return new ServiceResponse<OperationResult>(new OperationResult(true, OperationEnum.Archive));
         }
 
 
-        private async Task<OperationResult> UpMethod<T>(Func<T, bool> condition, string controllerName, T model) where T : class, IEntity
+        private async Task<ServiceResponse<OperationResult>> UpMethod<T>(Func<T, bool> condition, string controllerName, T model) where T : class, IEntity
         {
             IQueryable<T> iQuery = (IQueryable<T>)DbContext.GetQueryable<T>().AsNoTracking();
             if (condition != null)
                 iQuery = DbContext.GetQueryable<T>().AsNoTracking().Where(condition).AsQueryable();
 
             var orderSort = OrderSortEnum.Desc;
- 
 
             var command = new BaseUpCommand
             {
@@ -160,10 +158,10 @@ namespace Application.Modules.Base.Commands
             };
             await DbContext.UpdatePropertiesAsync(model, command, UserAccessor);
 
-            return new OperationResult(true);
+            return new ServiceResponse<OperationResult>(new OperationResult(true, OperationEnum.Up));
         }
 
-        private async Task<OperationResult> DownMethod<T>(Func<T, bool> condition, string controllerName, T model) where T : class, IEntity
+        private async Task<ServiceResponse<OperationResult>> DownMethod<T>(Func<T, bool> condition, string controllerName, T model) where T : class, IEntity
         {
             IQueryable<T> iQuery = (IQueryable<T>)DbContext.GetQueryable<T>().AsNoTracking();
             if (condition != null)
@@ -177,10 +175,10 @@ namespace Application.Modules.Base.Commands
             };
             await DbContext.UpdatePropertiesAsync(model, command, UserAccessor);
 
-            return new OperationResult(true);
+            return new ServiceResponse<OperationResult>(new OperationResult(true, OperationEnum.Down));
         }
 
-        private async Task<OperationResult> FirstMethod<T>(Func<T, bool> condition, string controllerName, T model) where T : class, IEntity
+        private async Task<ServiceResponse<OperationResult>> FirstMethod<T>(Func<T, bool> condition, string controllerName, T model) where T : class, IEntity
         {
             IQueryable<T> iQuery = (IQueryable<T>)DbContext.GetQueryable<T>().AsNoTracking();
             if (condition != null)
@@ -193,10 +191,10 @@ namespace Application.Modules.Base.Commands
                 OrderId = await ChangeOrderId(iQuery, model, OrderIdDirectionEnum.First, orderSort),
             };
             await DbContext.UpdatePropertiesAsync(model, command, UserAccessor);
-            return new OperationResult(true);
+            return new ServiceResponse<OperationResult>(new OperationResult(true, OperationEnum.First));
         }
 
-        private async Task<OperationResult> LastMethod<T>(Func<T, bool> condition, string controllerName, T model) where T : class, IEntity
+        private async Task<ServiceResponse<OperationResult>> LastMethod<T>(Func<T, bool> condition, string controllerName, T model) where T : class, IEntity
         {
             IQueryable<T> iQuery = (IQueryable<T>)DbContext.GetQueryable<T>().AsNoTracking();
             if (condition != null)
@@ -209,7 +207,7 @@ namespace Application.Modules.Base.Commands
                 OrderId = await ChangeOrderId(iQuery, model, OrderIdDirectionEnum.Last, orderSort),
             };
             await DbContext.UpdatePropertiesAsync(model, command, UserAccessor);
-            return new OperationResult(true);
+            return new ServiceResponse<OperationResult>(new OperationResult(true, OperationEnum.Last));
         }
 
 

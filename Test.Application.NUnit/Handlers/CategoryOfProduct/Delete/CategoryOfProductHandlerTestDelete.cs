@@ -25,7 +25,7 @@ namespace Test.Application.NUnit.Handlers.CategoryOfProduct.Delete
             };
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.That(result.OperationStatus);
+            Assert.That(result.Success);
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace Test.Application.NUnit.Handlers.CategoryOfProduct.Delete
             };
 
             var result = handler.Handle(item, CancellationToken.None).Result;
-            Assert.That(result.OperationStatus == false);
+            Assert.That(result.Success == false);
         }
     }
 }

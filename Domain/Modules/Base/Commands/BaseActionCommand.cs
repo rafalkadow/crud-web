@@ -1,13 +1,12 @@
-﻿using Domain.Modules.Base.Models;
+﻿using Domain.Modules.Communication.Generics;
 using MediatR;
-using Shared.Enums;
 using Shared.Interfaces;
 using Shared.Models;
 
 namespace Domain.Modules.Base.Commands
 {
     [Serializable]
-    public class BaseActionCommand : IRequest<OperationResult>, ICommand
+    public class BaseActionCommand : IRequest<ServiceResponse<OperationResult>>, ICommand
     {
         public ICollection<Guid> GuidList { get; set; }
 

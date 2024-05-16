@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Shared.Extensions.EnumExtensions;
+using Domain.Modules.Communication.Generics;
 
 namespace Web.Helpers
 {
@@ -28,11 +29,11 @@ namespace Web.Helpers
             return controller.Ok(result);
         }
 
-        public static IActionResult SignInUserToApplication(this ControllerBase controller, SignInCommand command, OperationResult? result)
+        public static IActionResult SignInUserToApplication(this ControllerBase controller, SignInCommand command, ServiceResponse<OperationResult>? result)
         {
-            if (result != null && result.OperationStatus)
+            if (result != null && result.Success)
             {
-                string? entityId = result.EntityId != null ? result.EntityId.ToString() : string.Empty;
+                string? entityId = result.Data.EntityId != null ? result.Data.EntityId.ToString() : string.Empty;
                 List <Claim> claims = new()
                 {
                     new Claim(ClaimTypes.Name, command.SignInEmail),
@@ -64,9 +65,9 @@ namespace Web.Helpers
             return email;
         }
 
-        public static IActionResult SwitchResultJson(this ControllerBase controller, OperationResult? result)
+        public static IActionResult SwitchResultJson(this ControllerBase controller, ServiceResponse<OperationResult>? result)
         {
-            if (result != null && result.OperationStatus)
+            if (result != null && result.Success)
             {
                 return new JsonResult(SuccessResponse(result));
             }
@@ -74,17 +75,17 @@ namespace Web.Helpers
         }
 
 
-        public static OperationResultWeb FailResponse(OperationResult? operationResult = null)
+        public static OperationResultWeb FailResponse(ServiceResponse<OperationResult>? result = null)
         {
-            if (operationResult != null)
+            if (result != null)
             {
                 var dictionaryValidation = new Dictionary<string, string>();
 
-                if (operationResult.Errors != null)
+                if (result.Errors != null)
                 {
-                    for (int i = 0; i < operationResult.Errors.Count(); i++)
+                    for (int i = 0; i < result.Errors.Count(); i++)
                     {
-                        var element = operationResult.Errors.ToList()[i];
+                        var element = result.Errors.ToList()[i];
 
                         if (!dictionaryValidation.ContainsKey(element.PropertyName))
                         {
@@ -104,16 +105,17 @@ namespace Web.Helpers
                 {
                     Success = false,
                     Messages = dictionaryValidation,
-                    ErrorMessage = operationResult.ErrorMessage,
-                    Guid = operationResult.GuidRecord,
-                    OperationType = EnumExtensions.GetDescription<OperationEnum>(operationResult.Operation),
-                    Entity = operationResult.entity,
-                    EntityId = operationResult.EntityId,
-                    Message = operationResult.Message,
+                    ErrorMessage = result.Data.ErrorMessage,
+                    Guid = result.Data.GuidRecord,
+                    OperationType = result.Data.Operation.GetDescription(),
+                    Entity = result.Data.entity,
+                    EntityId = result.Data.EntityId,
+                    Message = result.Data.Message,
                 };
 
                 return responseAnother;
             }
+
             var response = new OperationResultWeb
             {
                 Success = false,
@@ -122,18 +124,18 @@ namespace Web.Helpers
             return response;
         }
 
-        public static OperationResultWeb SuccessResponse(OperationResult operationResult = null)
+        public static OperationResultWeb SuccessResponse(ServiceResponse<OperationResult> result)
         {
-            if (operationResult != null)
+            if (result != null)
             {
                 var responseWithGuid = new OperationResultWeb
                 {
                     Success = true,
-                    Guid = operationResult.GuidRecord,
-                    OperationType = EnumExtensions.GetDescription<OperationEnum>(operationResult.Operation),
-                    Entity = operationResult.entity,
-                    EntityId = operationResult.EntityId,
-                    Message = operationResult.Message,
+                    Guid = result.Data.GuidRecord,
+                    OperationType = result.Data.Operation.GetDescription(),
+                    Entity = result.Data.entity,
+                    EntityId = result.Data.EntityId,
+                    Message = result.Data.Message,
                 };
                 return responseWithGuid;
             }

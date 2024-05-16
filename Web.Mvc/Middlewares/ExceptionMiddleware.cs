@@ -19,16 +19,16 @@ namespace Web.Middlewares
             {
                 await next(httpContext);
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                logger.LogError($"Invoke(exception={exception})");
-                logger.LogError($"Invoke(exception.Message={exception.Message})");
+                logger.LogError($"Invoke(exception={ex})");
+                logger.LogError($"Invoke(exception.Message={ex.Message})");
                 httpContext.Response.Clear();
                 httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 var url = httpContext.Request.GetEncodedUrl();
                 httpContext.Response.Redirect("/error/500/Url?errorUrl=" + url);
                 logger.LogError($"Invoke(exception.url={url})");
-                await httpContext.Response.WriteAsync(exception.ToString());
+                await httpContext.Response.WriteAsync(ex.ToString());
                 throw;
             }
         }

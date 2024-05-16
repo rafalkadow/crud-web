@@ -12,7 +12,7 @@ namespace Application.Extensions
         public static IServiceCollection AddIfrastructure(this IServiceCollection services)
 		{
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddValidatorsFromAssemblyContaining<IAssemblyMarker>();
+            services.AddValidatorsFromAssemblyContaining<IAssemblyApplicationMarker>();
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
             services.AddMediatR(cf =>

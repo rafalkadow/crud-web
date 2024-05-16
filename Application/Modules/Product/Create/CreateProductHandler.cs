@@ -9,18 +9,19 @@ using Shared.Enums;
 using NLog;
 using Microsoft.Extensions.Logging;
 using Application.Modules.Base.Commands;
+using Domain.Modules.Communication.Generics;
 
 namespace Application.Modules.Product.Create
 {
     [Serializable]
-    public class CreateProductHandler : BaseCommandHandler, IRequestHandler<CreateProductCommand, OperationResult>
+    public class CreateProductHandler : BaseCommandHandler, IRequestHandler<CreateProductCommand, ServiceResponse<OperationResult>>
     {
         public CreateProductHandler(IDbContext dbContext, IMapper mapper, IUserAccessor userAccessor)
             : base(dbContext, mapper, userAccessor)
         {
         }
 
-        public async Task<OperationResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
+        public async Task<ServiceResponse<OperationResult>> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
             logger.Info($"Handle(filter='{command.RenderProperties()}', cancellationToken='{cancellationToken}')");
             try
@@ -30,7 +31,7 @@ namespace Application.Modules.Product.Create
                 model.OrderId = await GetOrderIdForTable(model);
                 await DbContext.CreateAsync(model, UserAccessor);
 
-                return new OperationResult(model, OperationEnum.Create);
+                return new ServiceResponse<OperationResult>(new OperationResult(model, OperationEnum.Create));
             }
             catch (Exception ex)
             {
